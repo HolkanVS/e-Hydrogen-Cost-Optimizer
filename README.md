@@ -87,7 +87,7 @@ It provides detailed, step-by-step instructions for:
 - Exporting and analyzing results
 - Replicating real-world case studies
 
-You can find the User Manual in the main folder named `User_Manual_v.0.3.1.pdf` file, you can just click [here](User_Manual.pdf) to be redirected.
+You can find the User Manual in the main folder named `User_Manual_v.0.3.1.pdf` file, you can just click [here](User_Manual_v.0.3.1.pdf) to be redirected.
 
 **We highly recommend reviewing the manual before starting a new project.** It is especially useful for first-time users and those working with custom scenarios or advanced inputs.
 
