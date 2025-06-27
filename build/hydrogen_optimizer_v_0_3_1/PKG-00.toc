@@ -1,0 +1,92 @@
+('C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+ 'v0.3\\build\\hydrogen_optimizer_v_0_3_1\\e_Hydrogen_Cost_Optimizer_v_0_3_1.pkg',
+ {'BINARY': True,
+  'DATA': True,
+  'EXECUTABLE': True,
+  'EXTENSION': True,
+  'PYMODULE': True,
+  'PYSOURCE': True,
+  'PYZ': False,
+  'SPLASH': True,
+  'SYMLINK': False},
+ [('pyi-contents-directory _internal', '', 'OPTION'),
+  ('PYZ-00.pyz',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\build\\hydrogen_optimizer_v_0_3_1\\PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\build\\hydrogen_optimizer_v_0_3_1\\localpycs\\struct.pyc',
+   'PYMODULE'),
+  ('pyimod01_archive',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\build\\hydrogen_optimizer_v_0_3_1\\localpycs\\pyimod01_archive.pyc',
+   'PYMODULE'),
+  ('pyimod02_importers',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\build\\hydrogen_optimizer_v_0_3_1\\localpycs\\pyimod02_importers.pyc',
+   'PYMODULE'),
+  ('pyimod03_ctypes',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\build\\hydrogen_optimizer_v_0_3_1\\localpycs\\pyimod03_ctypes.pyc',
+   'PYMODULE'),
+  ('pyimod04_pywin32',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\build\\hydrogen_optimizer_v_0_3_1\\localpycs\\pyimod04_pywin32.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   'c:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_pkgres',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgres.py',
+   'PYSOURCE'),
+  ('pyi_rth_multiprocessing',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
+   'PYSOURCE'),
+  ('pyi_rth_setuptools',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_setuptools.py',
+   'PYSOURCE'),
+  ('pyi_rth_pkgutil',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
+   'PYSOURCE'),
+  ('pyi_rth_inspect',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'PYSOURCE'),
+  ('pyi_rth_mplconfig',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_mplconfig.py',
+   'PYSOURCE'),
+  ('pyi_rth_traitlets',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks\\pyi_rth_traitlets.py',
+   'PYSOURCE'),
+  ('pyi_rth_pywintypes',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks\\pyi_rth_pywintypes.py',
+   'PYSOURCE'),
+  ('pyi_rth_pythoncom',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks\\pyi_rth_pythoncom.py',
+   'PYSOURCE'),
+  ('pyi_rth__tkinter',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth__tkinter.py',
+   'PYSOURCE'),
+  ('hydrogen_optimizer_v_0_3_1',
+   'C:\\Users\\VAZQUEH\\Documents\\Python Codes\\e-Hydrogen Cost Optimizer '
+   'v0.3\\hydrogen_optimizer_v_0_3_1.py',
+   'PYSOURCE')],
+ 'python312.dll',
+ True,
+ False,
+ False,
+ [],
+ None,
+ None,
+ None)

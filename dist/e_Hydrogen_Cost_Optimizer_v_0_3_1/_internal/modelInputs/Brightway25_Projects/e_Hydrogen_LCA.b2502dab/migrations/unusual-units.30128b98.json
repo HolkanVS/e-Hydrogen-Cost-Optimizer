@@ -1,0 +1,889 @@
+{
+  "fields": [
+    "unit"
+  ],
+  "data": [
+    [
+      [
+        "PJ"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 1000000000.0
+      }
+    ],
+    [
+      [
+        "J"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "Nm3 Europe"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 37.5
+      }
+    ],
+    [
+      [
+        "Bt"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 0.001055696
+      }
+    ],
+    [
+      [
+        "kilojoule"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 0.001
+      }
+    ],
+    [
+      [
+        "kg-NL"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 42.4
+      }
+    ],
+    [
+      [
+        "Nm3-Russia"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 36.4
+      }
+    ],
+    [
+      [
+        "Nm3-DZ"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 38.5
+      }
+    ],
+    [
+      [
+        "Nm3-GB"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 37.0
+      }
+    ],
+    [
+      [
+        "Nm3 - NG"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 38.5
+      }
+    ],
+    [
+      [
+        "Nm3- Italy"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 33.85
+      }
+    ],
+    [
+      [
+        "Nm3 F-v6"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 36.894
+      }
+    ],
+    [
+      [
+        "kg-DZ"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 49.7
+      }
+    ],
+    [
+      [
+        "kWp"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 3.6
+      }
+    ],
+    [
+      [
+        "kg-DE"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 45.9
+      }
+    ],
+    [
+      [
+        "gigajoule"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "kcal"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 0.0041855
+      }
+    ],
+    [
+      [
+        "kg-RU"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 49.3
+      }
+    ],
+    [
+      [
+        "kg-NO"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 56.6
+      }
+    ],
+    [
+      [
+        "TJ"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 1000000.0
+      }
+    ],
+    [
+      [
+        "Nm3-DE"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 35.0
+      }
+    ],
+    [
+      [
+        "Nm3 FR"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 37.09
+      }
+    ],
+    [
+      [
+        "Nm3 - EG"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 38.5
+      }
+    ],
+    [
+      [
+        "Nm3-NL"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 34.9
+      }
+    ],
+    [
+      [
+        "kg-GB"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 47.0
+      }
+    ],
+    [
+      [
+        "NM3-Norway"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 40.8
+      }
+    ],
+    [
+      [
+        "cal"
+      ],
+      {
+        "unit": "megajoule",
+        "multiplier": 4.19e-06
+      }
+    ],
+    [
+      [
+        "MWh"
+      ],
+      {
+        "unit": "kilowatt hour",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "TWh"
+      ],
+      {
+        "unit": "kilowatt hour",
+        "multiplier": 1000000000.0
+      }
+    ],
+    [
+      [
+        "watt hour"
+      ],
+      {
+        "unit": "kilowatt hour",
+        "multiplier": 0.001
+      }
+    ],
+    [
+      [
+        "GWh"
+      ],
+      {
+        "unit": "kilowatt hour",
+        "multiplier": 1000000.0
+      }
+    ],
+    [
+      [
+        "gram"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 0.001
+      }
+    ],
+    [
+      [
+        "t"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "tMS"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "lb"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 0.4535924
+      }
+    ],
+    [
+      [
+        "T"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "tn.sh"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 907.1848
+      }
+    ],
+    [
+      [
+        "tMB"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "pg"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1e-15
+      }
+    ],
+    [
+      [
+        "mg"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "kton"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1000000.0
+      }
+    ],
+    [
+      [
+        "oz"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 0.02834952
+      }
+    ],
+    [
+      [
+        "?g"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1e-09
+      }
+    ],
+    [
+      [
+        "\u03bcg"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1e-09
+      }
+    ],
+    [
+      [
+        "tn.lg"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1016.047
+      }
+    ],
+    [
+      [
+        "tOM"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "Mtn"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1000000000.0
+      }
+    ],
+    [
+      [
+        "ton"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "ng"
+      ],
+      {
+        "unit": "kilogram",
+        "multiplier": 1e-12
+      }
+    ],
+    [
+      [
+        "yard"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 0.9144
+      }
+    ],
+    [
+      [
+        "inch"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 0.0254
+      }
+    ],
+    [
+      [
+        "mm"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 0.001
+      }
+    ],
+    [
+      [
+        "dm"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 0.1
+      }
+    ],
+    [
+      [
+        "Nautic mil"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 1547.896
+      }
+    ],
+    [
+      [
+        "mile"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 1609.35
+      }
+    ],
+    [
+      [
+        "cm"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 0.01
+      }
+    ],
+    [
+      [
+        "ft"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 0.3048
+      }
+    ],
+    [
+      [
+        "?m"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "\u03bcm"
+      ],
+      {
+        "unit": "meter",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "miy"
+      ],
+      {
+        "unit": "meter-year",
+        "multiplier": 1609.35
+      }
+    ],
+    [
+      [
+        "kmy"
+      ],
+      {
+        "unit": "meter-year",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "dm3"
+      ],
+      {
+        "unit": "cubic meter",
+        "multiplier": 0.001
+      }
+    ],
+    [
+      [
+        "cu.in"
+      ],
+      {
+        "unit": "cubic meter",
+        "multiplier": 1.638706e-05
+      }
+    ],
+    [
+      [
+        "cuft"
+      ],
+      {
+        "unit": "cubic meter",
+        "multiplier": 0.02831685
+      }
+    ],
+    [
+      [
+        "mm3"
+      ],
+      {
+        "unit": "cubic meter",
+        "multiplier": 1e-09
+      }
+    ],
+    [
+      [
+        "gal*"
+      ],
+      {
+        "unit": "cubic meter",
+        "multiplier": 0.003785412
+      }
+    ],
+    [
+      [
+        "cu.yd"
+      ],
+      {
+        "unit": "cubic meter",
+        "multiplier": 0.7645549
+      }
+    ],
+    [
+      [
+        "cm3"
+      ],
+      {
+        "unit": "cubic meter",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "l*day"
+      ],
+      {
+        "unit": "cubic meter-year",
+        "multiplier": 2.7397e-06
+      }
+    ],
+    [
+      [
+        "cm3y"
+      ],
+      {
+        "unit": "cubic meter-year",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "m3day"
+      ],
+      {
+        "unit": "cubic meter-year",
+        "multiplier": 0.0027397
+      }
+    ],
+    [
+      [
+        "sq.mi"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 2589988.0
+      }
+    ],
+    [
+      [
+        "sq.ft"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 0.09290304
+      }
+    ],
+    [
+      [
+        "sq.in"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 0.00064516
+      }
+    ],
+    [
+      [
+        "sq.yd"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 0.8361273
+      }
+    ],
+    [
+      [
+        "cm2"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 0.0001
+      }
+    ],
+    [
+      [
+        "km2"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 1000000.0
+      }
+    ],
+    [
+      [
+        "dm2"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 0.01
+      }
+    ],
+    [
+      [
+        "acre"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 4046.856
+      }
+    ],
+    [
+      [
+        "mm2"
+      ],
+      {
+        "unit": "square meter",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "mm2a"
+      ],
+      {
+        "unit": "square meter-year",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "ha a"
+      ],
+      {
+        "unit": "square meter-year",
+        "multiplier": 10000.0
+      }
+    ],
+    [
+      [
+        "cm2a"
+      ],
+      {
+        "unit": "square meter-year",
+        "multiplier": 0.0001
+      }
+    ],
+    [
+      [
+        "km2a"
+      ],
+      {
+        "unit": "square meter-year",
+        "multiplier": 1000000.0
+      }
+    ],
+    [
+      [
+        "nBq"
+      ],
+      {
+        "unit": "kilo Becquerel",
+        "multiplier": 1e-12
+      }
+    ],
+    [
+      [
+        "Becquerel"
+      ],
+      {
+        "unit": "kilo Becquerel",
+        "multiplier": 0.001
+      }
+    ],
+    [
+      [
+        "MBq"
+      ],
+      {
+        "unit": "kilo Becquerel",
+        "multiplier": 1000.0
+      }
+    ],
+    [
+      [
+        "?Bq"
+      ],
+      {
+        "unit": "kilo Becquerel",
+        "multiplier": 1e-09
+      }
+    ],
+    [
+      [
+        "\u03bcBq"
+      ],
+      {
+        "unit": "kilo Becquerel",
+        "multiplier": 1e-09
+      }
+    ],
+    [
+      [
+        "mBq"
+      ],
+      {
+        "unit": "kilo Becquerel",
+        "multiplier": 1e-06
+      }
+    ],
+    [
+      [
+        "s"
+      ],
+      {
+        "unit": "hour",
+        "multiplier": 3600.0
+      }
+    ],
+    [
+      [
+        "day"
+      ],
+      {
+        "unit": "hour",
+        "multiplier": 0.041666666666666664
+      }
+    ],
+    [
+      [
+        "year"
+      ],
+      {
+        "unit": "hour",
+        "multiplier": 0.00011407958876589842
+      }
+    ],
+    [
+      [
+        "min"
+      ],
+      {
+        "unit": "hour",
+        "multiplier": 60.0
+      }
+    ],
+    [
+      [
+        "pmi"
+      ],
+      {
+        "unit": "person kilometer",
+        "multiplier": 1.60935
+      }
+    ],
+    [
+      [
+        "kilogram kilometer"
+      ],
+      {
+        "unit": "ton kilometer",
+        "multiplier": 0.001
+      }
+    ],
+    [
+      [
+        "tmi*"
+      ],
+      {
+        "unit": "ton kilometer",
+        "multiplier": 1.45997
+      }
+    ],
+    [
+      [
+        "ktkm"
+      ],
+      {
+        "unit": "ton kilometer",
+        "multiplier": 1000.0
+      }
+    ]
+  ]
+}

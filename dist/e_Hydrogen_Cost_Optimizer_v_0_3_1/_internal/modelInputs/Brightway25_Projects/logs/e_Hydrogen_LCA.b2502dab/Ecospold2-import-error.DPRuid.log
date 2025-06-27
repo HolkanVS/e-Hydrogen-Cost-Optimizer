@@ -1,0 +1,39 @@
+Purging unlinked exchange:
+Filename: b9b9a013-250d-5b47-b391-2ae42942cb2d_845b9f66-4a29-45f9-85d0-8b7fc8df73e4.spold
+{ 'activity': '3e98e5d8-ce50-5e00-9807-7549d99e70b7',
+  'amount': 0.00268461208827497,
+  'classifications': { 'By-product classification': 'allocatable product',
+                       'CPC': '87360: Installation services of electrical '
+                              'machinery and apparatus n.e.c.'},
+  'comment': None,
+  'flow': '845b9f66-4a29-45f9-85d0-8b7fc8df73e4',
+  'loc': 0.00268461208827497,
+  'name': 'photovoltaic slanted-roof installation, 3kWp, single-Si, panel, '
+          'mounted, on roof',
+  'production volume': 0.0,
+  'properties': { 'carbon allocation': {'amount': 0.0, 'unit': 'kg'},
+                  'carbon content': {'amount': 0.0, 'unit': 'dimensionless'},
+                  'price': {'amount': 11223.89968090772, 'unit': 'EUR2005'}},
+  'type': 'technosphere',
+  'uncertainty type': 0,
+  'unit': 'unit'}
+Purging unlinked exchange:
+Filename: b9b9a013-250d-5b47-b391-2ae42942cb2d_845b9f66-4a29-45f9-85d0-8b7fc8df73e4.spold
+{ 'activity': 'cd8f2a25-38b8-5f71-9083-814d56d1acc3',
+  'amount': 0.997315387911725,
+  'classifications': { 'By-product classification': 'allocatable product',
+                       'CPC': '87360: Installation services of electrical '
+                              'machinery and apparatus n.e.c.'},
+  'comment': None,
+  'flow': '845b9f66-4a29-45f9-85d0-8b7fc8df73e4',
+  'loc': 0.997315387911725,
+  'name': 'photovoltaic slanted-roof installation, 3kWp, single-Si, panel, '
+          'mounted, on roof',
+  'production volume': 0.0,
+  'properties': { 'capacity': {'amount': 3.0, 'unit': 'kWp'},
+                  'carbon allocation': {'amount': 0.0, 'unit': 'kg'},
+                  'carbon content': {'amount': 0.0, 'unit': 'dimensionless'},
+                  'price': {'amount': 11223.89968090772, 'unit': 'EUR2005'}},
+  'type': 'technosphere',
+  'uncertainty type': 0,
+  'unit': 'unit'}

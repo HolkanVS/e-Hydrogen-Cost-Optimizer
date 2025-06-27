@@ -1,0 +1,351 @@
+{
+  "fields": [
+    "name"
+  ],
+  "data": [
+    [
+      [
+        "Heat, onsite boiler, hardwood mill, average, NE-NC"
+      ],
+      {
+        "name": "Heat, onsite boiler, hardwood mill average, NE-NC"
+      }
+    ],
+    [
+      [
+        "Fuel wood, hardwood, green, at veneer mill, E"
+      ],
+      {
+        "name": "Wood fuel, hardwood, green, at veneer mill, E"
+      }
+    ],
+    [
+      [
+        "Electricity, at cogen, natural gas turbine"
+      ],
+      {
+        "name": "Electricity, at cogen, for natural gas turbine"
+      }
+    ],
+    [
+      [
+        "Palm kernel oil, crude, at plant"
+      ],
+      {
+        "name": "Crude palm kernel oil, at plant"
+      }
+    ],
+    [
+      [
+        "tillage, corn, reduced"
+      ],
+      {
+        "name": "tillage, reduce, corn production"
+      }
+    ],
+    [
+      [
+        "Heat, Drying veneer, hardwood, at veneer mill,  E"
+      ],
+      {
+        "name": "Heat, drying veneer, hardwood, at veneer mill, E"
+      }
+    ],
+    [
+      [
+        "ethanol, denatured, forest residues, thermochemical"
+      ],
+      {
+        "name": "Ethanol, denatured, forest residues, thermochem"
+      }
+    ],
+    [
+      [
+        "Bark, hardwood, average, at forest road, NE-NC"
+      ],
+      {
+        "name": "Bark, hardwood, average, at forest road,  NE-NC"
+      }
+    ],
+    [
+      [
+        "Switchgrass, production, average, US, 2022"
+      ],
+      {
+        "name": "Switchgrass, production, US, 2022"
+      }
+    ],
+    [
+      [
+        "Transport, pipeline, unspecified"
+      ],
+      {
+        "name": "Transport, pipeline, unspecified petroleum products"
+      }
+    ],
+    [
+      [
+        "corn wet milling operations, AP-42"
+      ],
+      {
+        "name": "corn wet milling, operations, AP-42"
+      }
+    ],
+    [
+      [
+        "Transport, single-unit truck"
+      ],
+      {
+        "name": "Transport, single unit truck, diesel powered"
+      }
+    ],
+    [
+      [
+        "Compressed natural gas, at plant"
+      ],
+      {
+        "name": "Natural gas, processed, at plant"
+      }
+    ],
+    [
+      [
+        "Natural gas, processed, for olefins production, at plant, material use"
+      ],
+      {
+        "name": "Natural gas, processed, for olefins production, at plant"
+      }
+    ],
+    [
+      [
+        "Wood, hardwood, generated at mill, combusted in industrial boiler, E"
+      ],
+      {
+        "name": "Wood fuel, E hardwood, generated at mill, combusted in industrial boiler"
+      }
+    ],
+    [
+      [
+        "Electricity, at grid, Eastern US"
+      ],
+      {
+        "name": "Electricity, at grid, Eastern US, 2000"
+      }
+    ],
+    [
+      [
+        "Electricity, at grid, Western US"
+      ],
+      {
+        "name": "Electricity, at grid, Western US, 2000"
+      }
+    ],
+    [
+      [
+        "Wood, NE-NC hardwood, purchased, combusted in industrial boiler"
+      ],
+      {
+        "name": "Wood fuel, NE-NC hardwood, purchased, combusted in industrial boiler"
+      }
+    ],
+    [
+      [
+        "Transport, combination truck, diesel powered "
+      ],
+      {
+        "name": "Transport, combination truck, diesel powered"
+      }
+    ],
+    [
+      [
+        "Transport, combination truck"
+      ],
+      {
+        "name": "Transport, combination truck, average fuel mix"
+      }
+    ],
+    [
+      [
+        "Wood, hardwood, purchased, combusted in industrial boiler, E"
+      ],
+      {
+        "name": "Wood fuel, E hardwood, purchased, combusted in industrial boiler, E"
+      }
+    ],
+    [
+      [
+        "tillage, corn, conservation"
+      ],
+      {
+        "name": "tillage, conversation, corn production"
+      }
+    ],
+    [
+      [
+        "Transport, ocean tanker, average fuel mix"
+      ],
+      {
+        "name": "Transport, ocean freighter, average fuel mix"
+      }
+    ],
+    [
+      [
+        "Bucked log, hardwood, green, at veneer mill, E"
+      ],
+      {
+        "name": "Bucked and debarked log, hardwood, green, at veneer mill, E"
+      }
+    ],
+    [
+      [
+        "Wood, NE-NC hardwood, generated at lumber mill, combusted in industrial boiler"
+      ],
+      {
+        "name": "Wood fuel, NE-NC hardwood, gen at lumber mill, combusted in industrial boiler"
+      }
+    ],
+    [
+      [
+        "Electricity, as grid, US, 2008"
+      ],
+      {
+        "name": "Electricity, at Grid, US, 2008"
+      }
+    ],
+    [
+      [
+        "Electricity, onsite boiler, softwood mill average, NE-NC"
+      ],
+      {
+        "name": "Electricity, onsite boiler, softwood mill, average, NE-NC"
+      }
+    ],
+    [
+      [
+        "decomposition, corn, 15.5% moisture basis"
+      ],
+      {
+        "name": "Corn, decomposition, 15.5% moisture"
+      }
+    ],
+    [
+      [
+        "Petroleum refining, for olefins production, at plant, internal offgas use"
+      ],
+      {
+        "name": "Petroleum refining, for olefins production, at plant"
+      }
+    ],
+    [
+      [
+        "Electricity, onsite boiler, hardwood mill average, SE"
+      ],
+      {
+        "name": "Electricity, onsite boiler, hardwood mill, average, SE"
+      }
+    ],
+    [
+      [
+        "Electricity, at grid, US"
+      ],
+      {
+        "name": "Electricity, at Grid, US, 2008"
+      }
+    ],
+    [
+      [
+        "Head, indirect, heated zones, softwood, plywood veneer drying, AP-42"
+      ],
+      {
+        "name": "indirect heated, heated zones, softwood, plywood veneer drying, AP-42"
+      }
+    ],
+    [
+      [
+        "Corn stover, production, average,US, 2022"
+      ],
+      {
+        "name": "Corn stover, production, average, US, 2022"
+      }
+    ],
+    [
+      [
+        "Electricity, cogenerated, at plant"
+      ],
+      {
+        "name": "Electricity, at cogen, for natural gas turbine"
+      }
+    ],
+    [
+      [
+        "Chlorine, PVC producer average, at plant"
+      ],
+      {
+        "name": "Chlor-alkali electrolysis, average production mix, at plant"
+      }
+    ],
+    [
+      [
+        "Natural gas, processed, for olefins production, at plant, internal offgas use"
+      ],
+      {
+        "name": "Natural gas, processed, for olefins production, at plant"
+      }
+    ],
+    [
+      [
+        "Electricity, onsite boiler, hardwood mill, average, NE-NC"
+      ],
+      {
+        "name": "Electricity, onsite boiler, hardwood mill average, NE-NC"
+      }
+    ],
+    [
+      [
+        "tillage, corn, intensive"
+      ],
+      {
+        "name": "tillage, intensive, corn production"
+      }
+    ],
+    [
+      [
+        "Petroleum refining, for olefins production, at plant, material use"
+      ],
+      {
+        "name": "Petroleum refining, for olefins production, at plant"
+      }
+    ],
+    [
+      [
+        "Spring wheat straw, ground and stored"
+      ],
+      {
+        "name": "spring wheat straw, ground and stored, 2022"
+      }
+    ],
+    [
+      [
+        "Sawn lumber, hardwood, rough, kiln dried, at kiln, NE-NC  "
+      ],
+      {
+        "name": "Sawn lumber, hardwood, rough, kiln dried, at kiln, NE-NC"
+      }
+    ],
+    [
+      [
+        "Heat, onsite boiler, hardwood mill average, SE"
+      ],
+      {
+        "name": "Heat, onsite boiler, hardwood mill, average, SE"
+      }
+    ],
+    [
+      [
+        "Heat, Block conditioning, at veneer mill, E"
+      ],
+      {
+        "name": "Heat, block conditiong, at veneer mill, E"
+      }
+    ]
+  ]
+}
