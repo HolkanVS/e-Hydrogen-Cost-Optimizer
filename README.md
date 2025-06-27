@@ -93,6 +93,11 @@ You can find the User Manual in the main folder named `User_Manual_v.0.3.1.pdf` 
 
 ---
 
+## ⌨ Source Code 
+The source code is mainly found at the [hydrogen_optimizer_v_0_3_1.py](hydrogen_optimizer_v_0_3_1.py) `python` file. 
+
+---
+
 ## ✍Authors
 The **e-Hydrogen Cost Optimizer** is being continuously developed and maintained by researchers at  
 **King Abdullah University of Science and Technology (KAUST)**.
