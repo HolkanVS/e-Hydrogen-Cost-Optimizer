@@ -47,7 +47,7 @@ Follow these steps to install and run the **e-Hydrogen Cost Optimizer** on a Win
 ### System Requirements
 - Operating System: **Windows 10 or higher**
 - Internet connection (required for downloading weather data and LCA background data)
-- No Python installation required — the app runs as a standalone executable (`.exe`)
+- No Python installation required — the app runs as a standalone executable (`.exe`) alongside with an `_internal` folder that contains all the resources required.
 
 ### 📥 Installation Steps
 
