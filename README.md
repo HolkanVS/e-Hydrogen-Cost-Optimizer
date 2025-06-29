@@ -41,7 +41,29 @@ The **e-Hydrogen Cost Optimizer** app is built on top of the [Brightway LCA](htt
 
 ---
 
+## 📘 User Manual
+A complete **User Manual** is included in the [wiki](https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer-v0.3/wiki) section to guide you through each feature of the application.
+
+It provides detailed, step-by-step instructions for:
+
+- Setting system parameters and selecting technologies
+- Running techno-economic optimization
+- Interpreting cost results and decision variables
+- Exploring time series of system operation
+- Performing environmental impact assessments using LCA
+- Exporting and analyzing results
+- Replicating real-world case studies
+
+You can find the User Manual in the main folder named `User_Manual_v.0.3.1.pdf` file, you can just click [here](User_Manual_v.0.3.1.pdf) to be redirected.
+
+**We highly recommend reviewing the manual before starting a new project.** It is especially useful for first-time users and those working with custom scenarios or advanced inputs.
+
+---
+
 ## 💿 How To Install
+**Note:** This section provides a quick overview for installing the application.  
+> For the complete installation procedure, please refer to the full [Installation](Installation) guide in the wiki section.
+
 Follow these steps to install and run the **e-Hydrogen Cost Optimizer** on a Windows system:
 
 ### System Requirements
@@ -62,34 +84,13 @@ Follow these steps to install and run the **e-Hydrogen Cost Optimizer** on a Win
 
 3. **Run the Application**
    - Open the extracted folder and double-click the file:
-     ```
-     e_Hydrogen_Cost_Optimizer_v_0_3_1.exe
-     ```
+          `e_Hydrogen_Cost_Optimizer_v_0_3_1.exe`
 
    - **⚠ Important:** Do **not** move the `.exe` file out of its folder. If you need to relocate the application, move the entire folder to a new location.
    - You may optionally create a shortcut to the `.exe` file on your desktop.
 
 4. **Uninstallation**
    - To uninstall the application, simply delete the folder `e_Hydrogen_Cost_Optimizer_v_0_3_1`.
-
----
-
-## 📘 User Manual
-A complete **User Manual** is included to guide you through each feature of the application.
-
-It provides detailed, step-by-step instructions for:
-
-- Setting system parameters and selecting technologies
-- Running techno-economic optimization
-- Interpreting cost results and decision variables
-- Exploring time series of system operation
-- Performing environmental impact assessments using LCA
-- Exporting and analyzing results
-- Replicating real-world case studies
-
-You can find the User Manual in the main folder named `User_Manual_v.0.3.1.pdf` file, you can just click [here](User_Manual_v.0.3.1.pdf) to be redirected.
-
-**We highly recommend reviewing the manual before starting a new project.** It is especially useful for first-time users and those working with custom scenarios or advanced inputs.
 
 ---
 
