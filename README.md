@@ -62,7 +62,7 @@ You can find the User Manual in the main folder named `User_Manual_v.0.3.1.pdf` 
 
 ## 💿 How To Install
 **Note:** This section provides a quick overview for installing the application.  
-> For the complete installation procedure, please refer to the full [Installation](Installation) guide in the wiki section.
+> For the complete installation procedure, please refer to the full [Installation](https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer-v0.3/wiki/Installation) guide in the wiki section.
 
 Follow these steps to install and run the **e-Hydrogen Cost Optimizer** on a Windows system:
 
