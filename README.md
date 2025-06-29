@@ -86,7 +86,7 @@ Follow these steps to install and run the **e-Hydrogen Cost Optimizer** on a Win
    - Open the extracted folder and double-click the file:
           `e_Hydrogen_Cost_Optimizer_v_0_3_1.exe`
 
-   - **⚠ Important:** Do **not** move the `.exe` file out of its folder. If you need to relocate the application, move the entire folder to a new location.
+    - **⚠ Important:** Do **not** move the `.exe` file out of its folder. If you need to relocate the executable, move the entire folder to a new location.
    - You may optionally create a shortcut to the `.exe` file on your desktop.
 
 4. **Uninstallation**
