@@ -1,0 +1,34 @@
+body{
+    background-color: #eaeaea;
+    font-family: Helvetica, sans-serif;
+    color: #4b4b4b;
+    text-align: justify;
+    font-size: 20px;
+}
+header {
+  display: flex;
+  justify-content: space-between; /* logo on left, title on right */
+  align-items: center;           /* vertically align items */
+  padding: 10px 20px;
+}
+
+header img {
+  flex-shrink: 0; /* logo keeps its natural size */
+}
+
+header h1 {
+  flex: 1;           /* take up all remaining width */
+  text-align: center; /* center the text inside that space */
+  margin: 0;
+}
+figure {
+    font-family: serif;
+    font-size: 15px;
+} 
+footer {
+    font-family: serif;
+    text-align: center;
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 20px;
+}
