@@ -3,13 +3,14 @@ body{
     font-family: Helvetica, sans-serif;
     color: #4b4b4b;
     text-align: justify;
-    font-size: 20px;
+    font-size: 15px;
 }
 header {
   display: flex;
   justify-content: space-between; /* logo on left, title on right */
   align-items: center;           /* vertically align items */
   padding: 10px 20px;
+  background-color: #cfcfcf;
 }
 
 header img {
@@ -21,9 +22,14 @@ header h1 {
   text-align: center; /* center the text inside that space */
   margin: 0;
 }
+
 figure {
-    font-family: serif;
-    font-size: 15px;
+  display: inline-block;
+  margin: 0 10px; /* spacing between figures */
+  text-align: center; /* keeps captions under the images */
+  vertical-align: top; /* aligns them nicely */
+  font-family: serif;
+  font-size: 0.8em;
 } 
 footer {
     font-family: serif;
