@@ -1639,7 +1639,7 @@ class App(customtkinter.CTk):
                 self.hourlyDvDataset.loc[hour,"hsStore"]= self.instance.hsStore[hour].value
                 self.hourlyDvDataset.loc[hour,"hsAvail"]= self.instance.hsAvail[hour].value
                 self.hourlyDvDataset.loc[hour,"hsDeploy"]= self.instance.hsDeploy[hour].value
-                self.hourlyDvDataset.loc[hour,"totalH2"]=self.instance.hsDeploy[hour].value + self.instance.eyGen[eyUnit,hour].value
+                self.hourlyDvDataset.loc[hour,"totalH2"]= self.instance.eyGen[eyUnit,hour].value - self.instance.hsStore[hour].value + self.instance.hsDeploy[hour].value
 
                 #for later data analysis
                 self.hourlyDvDataset.loc[hour,"timestep"]= hour + 1
