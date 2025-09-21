@@ -12,7 +12,7 @@
     <link rel="manifest" href="site.webmanifest">
     <!-- Title and description -->
     <title>e-H2 Cost Optimizer WebApp</title>
-    <meta name="description" content="Python-based web application for LCOH optimization and LCA of e-hydrogen.">
+    <meta name="description" content="Python-based web application for LCOH optimization and LCA of electrolytic hydrogen.">
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://holkanvs.github.io/e-Hydrogen-Cost-Optimizer-v0.3/">
     <meta property="og:type" content="website">
@@ -33,6 +33,8 @@
     <meta property="og:image" content="https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer-v0.3/wiki/wiki_images/header_github-01.jpg">
     <!-- Link to external CSS -->
     <link rel="stylesheet" href="css/externalStyle.css">
+    <!-- Javascript to link Font Awesome (icons)-->
+    <script src="https://kit.fontawesome.com/49baa19813.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -50,15 +52,19 @@
             <li>Renewable Analysis</li>
             <li>Life Cycle Assessment</li>
         </ul>
-        <div>
-            <figure>
-                <img src="images_website/help.svg" alt="faq" width="50">
-                <figcaption>FAQ </figcaption>
-            </figure>
-            <figure>
-                <img src="images_website/mail.png" alt="mail" width="50">
-                <figcaption>Contact</figcaption>
-            </figure>
+        <div class="grid_container_footer">
+            <div>
+                <i class="fa-solid fa-circle-question fa-3x" style="color: #377416;"></i> 
+                <h5>FAQ</h5> 
+            </div>
+            <div>
+                <i class="fa-solid fa-envelope fa-3x" style="color: #377416;"></i> 
+                <h5>e-mail us</h5>
+            </div>
+            <div>
+                <i class="fa-brands fa-github fa-3x" style="color: #377416;"></i> 
+                <h5>GitHub repository</h5>
+            </div>
         </div>
     </main>
     <footer>

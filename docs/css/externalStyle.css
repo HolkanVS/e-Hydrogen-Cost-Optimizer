@@ -6,31 +6,28 @@ body{
     font-size: 15px;
 }
 header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr; /* two columns: logo and title */
   justify-content: space-between; /* logo on left, title on right */
   align-items: center;           /* vertically align items */
   padding: 10px 20px;
   background-color: #cfcfcf;
 }
 
-header img {
-  flex-shrink: 0; /* logo keeps its natural size */
-}
-
 header h1 {
-  flex: 1;           /* take up all remaining width */
-  text-align: center; /* center the text inside that space */
-  margin: 0;
+    text-align: center;
+}
+.grid_container_footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  text-align: center;
 }
 
-figure {
-  display: inline-block;
-  margin: 0 10px; /* spacing between figures */
-  text-align: center; /* keeps captions under the images */
-  vertical-align: top; /* aligns them nicely */
-  font-family: serif;
-  font-size: 0.8em;
-} 
+h5 {
+    margin-top: 0.25em;
+}
+
 footer {
     font-family: serif;
     text-align: center;
