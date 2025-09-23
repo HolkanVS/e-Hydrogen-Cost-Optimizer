@@ -19,8 +19,9 @@ header h1 {
 }
 .grid_container_footer {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 150px 150px 150px;
   justify-items: center;
+  justify-content: center;
   text-align: center;
 }
 
