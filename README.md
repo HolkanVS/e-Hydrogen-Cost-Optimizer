@@ -3,6 +3,9 @@
 <img src="images/hydrogen_optimizer_logo_v1.png" alt="e-Hydrogen Cost Optimizat Logo" width="250"/>
 <h1>e-Hydrogen Cost Optimizer</h1>
 <h3>Python-based User-defined Techno-economic Optimization and Life Cycle Assessment for e-Hydrogen Production </h3>
+
+
+[![DOI](https://zenodo.org/badge/1009494230.svg)](https://zenodo.org/badge/latestdoi/1009494230)
 </div>
 
 ---
