@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "e-Hydrogen Cost Optimizer"
+version: 0.3.1
+license: "Apache-2.0"
+type: software
+abstract: "Python-based User-defined Techno-economic Optimization and Life Cycle Assessment for e-Hydrogen Production"
+message: "If you use this software, please cite it as below."
+authors:
+  - given-names: Holkan
+    family-names: Vazquez-Sanchez
+    affiliation: King Abdullah University of Science and Technology
+    orcid: "https://orcid.org/0000-0002-1026-0661"
+keywords:
+  - green hydrogen
+  - electrolytic hydrogen
+  - life cycle assessment
+  - techno-economic optimizationß
