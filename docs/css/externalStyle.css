@@ -34,7 +34,7 @@ header h1 {
 }
 
 main {
-    max-width: 700px;
+    max-width: 1000px;
     margin: 36px auto 0 auto;
     background: #fff;
     border-radius: 18px;
@@ -56,32 +56,35 @@ main p {
     margin-top: 18px;
 }
 
-.grid_container_footer div {
-  background: #f6f6f6;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  padding: 18px 10px 10px 10px;
-  transition: box-shadow 0.2s, transform 0.2s;
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+
+.footer-card-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    padding: 18px 10px 10px 10px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: #f6f6f6;
+    color: inherit;
+    text-decoration: none;
+    text-align: center;
 }
 
-.grid_container_footer div:hover {
+.footer-card-link:hover {
     box-shadow: 0 6px 18px rgba(13,168,50,0.12);
     transform: translateY(-4px) scale(1.04);
 }
 
-.grid_container_footer i {
-    margin-bottom: 8px;
-    transition: color 0.2s;
+.footer-card-link i {
+  margin-bottom: 8px;
+  color: #0da832;
+  transition: color 0.2s;
 }
 
-.grid_container_footer a:hover i {
-    color: #097c23 !important;
+.footer-card-link:hover i {
+  color: #097c23;
 }
 
 h5 {
