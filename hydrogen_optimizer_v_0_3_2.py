@@ -4,62 +4,86 @@
 # v.0.3.2 Release notes
 # - Added hourly optimization (hydrogen daily demand is converted into an uniform hourly demand)
 # - Added total hydrogen produced in the time series plot 
-# - Needs to be packed into an executable file
+# - Added battery in the LCA analysis
+# - Replace CTkScrollableDropdown with ttk.Combobox (more stable)
+# - Stated top level libraries required to run the code
+
 
 
 #Libraries: 
 # Hereby we state the installation of some libaries that are required to run the code. 
 # Please use the requirements.txt file to install the libraries.
+# pip list --not-required
+# This shows only the top-level packages (the ones you installed manually). Dependencies won’t appear.
+#------------------------------------------------------------------------------------------------------
+#Verified:
+
 #pip install customtkinter
-#pip install "numpy<2"
-#pip install matplotlib
-#pip install openpyxl
-#pip install pyomo
-#pip3 install tkintermapview 
 #pip install tkcalendar
-#pip install pandas
+#pip install Pillow
+#pip install tkintermapview (contains customtkinter and Pillow as dependencies)
+#pip install "numpy<2"
+#pip install pandas (numpy<2 as dependency)
+#pip install matplotlib
+#pip install pyomo
+#pip install openpyxl
 #pip install timezonefinder
+#pip install brightway25 (MacOS Apple Silicon)
+#pip install brightway25 pypardiso (Windows)
 #pip install highspy (if using HiGHS solver)
-#GLPK installation (glpsol.exe) (if using GLPK solver)
-#MAC:
-#install homebrew
-#then add homebrew to PATH running this echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.bash_profile && source ~/.bash_profile
-#brew install glpk
+
 
 # Import necessary libraries
-from CTkScrollableDropdown import *
-from tkinter import ttk, filedialog, messagebox
+
+# Tkinter and extensions
 from tkinter import *
-from tkcalendar import DateEntry
+from tkinter import ttk, filedialog, messagebox
+#Import CustomTkinter
 import customtkinter
-from PIL import Image
-from PIL import ImageTk
+#GUI extensions
+#CTkScrollableDropdown (beta)
+from CTkScrollableDropdown import CTkScrollableDropdown
+#Tkcalender
+from tkcalendar import DateEntry
+# Images and mapping
+from PIL import Image, ImageTk
 from tkintermapview import TkinterMapView
+
+# Data and math
 import numpy as np
 import pandas as pd
+import math
+
+# Threading and OS
 import threading
 import os
 from os import path
-import math
-# Implement the default Matplotlib key bindings.
-from matplotlib.backend_bases import key_press_handler
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
-                                               NavigationToolbar2Tk)
-from matplotlib.figure import Figure
-#import matplotlib
+
+# Plotting
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.sankey import Sankey
+from matplotlib.backend_bases import key_press_handler
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+
+# Optimization
+from pyomo.environ import *
+from pyomo.environ import value
+
+# Web and IO
 import requests
 import json
 from io import StringIO
-from pyomo.environ import *
-from pyomo.environ import value 
+import webbrowser
+
+# Excel and regex
+from openpyxl import load_workbook
+import re
+
+# Time and timezone
 import pytz
 from timezonefinder import TimezoneFinder
 from datetime import datetime
-import webbrowser
-from openpyxl import load_workbook
-from matplotlib.sankey import Sankey
-import re  
 
 # Overriding the environment variable to set a new Brightway2 directory
 dat_path = path.abspath(path.join(path.dirname(path.realpath(__file__)), "modelInputs"))
@@ -79,16 +103,27 @@ customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 customtkinter.deactivate_automatic_dpi_awareness()
 
+# Save the original method
+_original_check = customtkinter.windows.widgets.ctk_scrollable_frame.CTkScrollableFrame.check_if_master_is_canvas
+
+def safe_check_if_master_is_canvas(self, widget):
+    if isinstance(widget, str):   # The buggy case (ttk.Combobox popup sends a string)
+        return False
+    return _original_check(self, widget)  # Fallback to original logic
+
+# Override with safe version
+customtkinter.windows.widgets.ctk_scrollable_frame.CTkScrollableFrame.check_if_master_is_canvas = safe_check_if_master_is_canvas
+
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
- 
+
         # Variables
         self.marker_list = []
 
         # Configure window
         self.resizable(False, False)  # Disable window resizing
-        self.title("e-Hydrogen Cost Optimizer by KAUST (v.0.3.1)")
+        self.title("e-Hydrogen Cost Optimizer by KAUST (v.0.3.2)")
         self.geometry('1200x700+0+0')
 
         # Configure grid layout (3x3)
@@ -271,9 +306,13 @@ class App(customtkinter.CTk):
         self.param_label_6.grid(row=5, column=0,columnspan=3, padx=10, pady=(0, 0),sticky="nsew")
         self.param_label_7 = customtkinter.CTkLabel(self.param_frame, text="Photovoltaics (PV):", font=customtkinter.CTkFont(size=12), anchor="ne")
         self.param_label_7.grid(row=6, column=0, padx=10,pady=(10,0),sticky="nsew")
-        self.pv_option_menu = customtkinter.CTkOptionMenu(self.param_frame, values=self.pv_scenarios, command=self.pv_scenario_set, width=190)
-        self.pv_option_menu.grid(row=6, column=1, padx=20)
-        CTkScrollableDropdown(self.pv_option_menu, values=self.pv_scenarios, command=self.pv_scenario_set, width=250,justify="left", button_color="transparent", frame_corner_radius=0, hover_color='darkgray')
+        
+        # scrollable dropdown #1 (Combobox alternative)
+        self.pv_option_menu = ttk.Combobox(self.param_frame, values=self.pv_scenarios, state="readonly", width=20)
+        self.pv_option_menu.grid(row=6, column=1, padx=0,columnspan=2)
+        self.pv_option_menu.current(0)
+        self.pv_option_menu.bind("<<ComboboxSelected>>", lambda e: (self.pv_scenario_set(self.pv_option_menu.get())))
+
         self.param_label_8 = customtkinter.CTkLabel(self.param_frame, text="CAPEX", font=customtkinter.CTkFont(size=12), anchor="e")
         self.param_label_8.grid(row=7, column=0, padx=10,sticky="nsew")
         self.param_entry_8 = customtkinter.CTkEntry(self.param_frame, placeholder_text="enter value")
@@ -294,12 +333,15 @@ class App(customtkinter.CTk):
         self.param_entry_10.grid(row=9,column=1,padx=(0))
         self.param_label_10_2 = customtkinter.CTkLabel(self.param_frame, text= 'years', font=customtkinter.CTkFont(size=12), anchor="w")
         self.param_label_10_2.grid(row=9, column=2,sticky="nsew")
-
         self.param_label_11 = customtkinter.CTkLabel(self.param_frame, text="Wind Turbines:", font=customtkinter.CTkFont(size=12), anchor="ne")
         self.param_label_11.grid(row=10, column=0, padx=10, pady=(10, 0),sticky="nsew")
-        self.wt_option_menu = customtkinter.CTkOptionMenu(self.param_frame, values=self.wt_scenarios, command=self.wt_scenario_set,width=190)
-        self.wt_option_menu.grid(row=10, column=1, padx=20)
-        CTkScrollableDropdown(self.wt_option_menu, values=self.wt_scenarios, command=self.wt_scenario_set, width=250,justify="left", button_color="transparent", frame_corner_radius=0, hover_color='darkgray')
+
+        # scrollable dropdown #2 (Combobox alternative)
+        self.wt_option_menu = ttk.Combobox(self.param_frame, values=self.wt_scenarios, state="readonly", width=20)
+        self.wt_option_menu.grid(row=10, column=1, padx=0, columnspan=2)
+        self.wt_option_menu.current(0)
+        self.wt_option_menu.bind("<<ComboboxSelected>>", lambda e: (self.wt_scenario_set(self.wt_option_menu.get())))
+
         self.param_label_12 = customtkinter.CTkLabel(self.param_frame, text="CAPEX", font=customtkinter.CTkFont(size=12), anchor="e")
         self.param_label_12.grid(row=11, column=0, padx=10,sticky="nsew")
         self.param_entry_12 = customtkinter.CTkEntry(self.param_frame, placeholder_text="enter value")
@@ -320,11 +362,15 @@ class App(customtkinter.CTk):
         self.param_entry_14.grid(row=13,column=1,padx=(0))
         self.param_label_14_2 = customtkinter.CTkLabel(self.param_frame, text= 'years', font=customtkinter.CTkFont(size=12), anchor="w")
         self.param_label_14_2.grid(row=13, column=2,sticky="nsew")
-        
         self.param_label_15 = customtkinter.CTkLabel(self.param_frame, text="Battery:", font=customtkinter.CTkFont(size=14, weight="bold"), anchor="w")
         self.param_label_15.grid(row=14, column=0, padx=10, pady=(10, 0),sticky="nsew")
-        self.storage_option_menu = customtkinter.CTkOptionMenu(self.param_frame, values=self.storage_scenarios, command=self.storage_scenario_set,width=190)
-        self.storage_option_menu.grid(row=14, column=1, padx=20)
+        
+        # scrollable dropdown #3 (Combobox alternative)
+        self.storage_option_menu = ttk.Combobox(self.param_frame, values=self.storage_scenarios, state="readonly", width=20)
+        self.storage_option_menu.grid(row=14, column=1, padx=0, columnspan=2)
+        self.storage_option_menu.current(0)
+        self.storage_option_menu.bind("<<ComboboxSelected>>", lambda e: (self.storage_scenario_set(self.storage_option_menu.get())))
+
         self.param_label_16 = customtkinter.CTkLabel(self.param_frame, text="Duration", font=customtkinter.CTkFont(size=12), anchor="e")
         self.param_label_16.grid(row=15, column=0, padx=10,sticky="nsew")
         self.param_entry_16 = customtkinter.CTkEntry(self.param_frame, placeholder_text="enter value")
@@ -552,17 +598,17 @@ class App(customtkinter.CTk):
         self.results_label1.grid(row=0, column=0, padx=10, pady=(10, 0),sticky='nsew')
         self.pv_image = customtkinter.CTkImage(light_image=Image.open(path.join(self.image_path, "pv_dark.png")),
                                                  dark_image=Image.open(path.join(self.image_path, "pv_light.png")), size=(30, 30))
-        self.opt_image1 = customtkinter.CTkLabel(self.results_frame, text="" , image='')
+        self.opt_image1 = customtkinter.CTkLabel(self.results_frame, text="" , image=None)
         self.opt_image1.grid(row=1, column=1,padx=10, pady=(10, 10),sticky='e')
         self.opt_label2 = customtkinter.CTkLabel(self.results_frame, text="" , font=customtkinter.CTkFont(size=12, weight="normal"), anchor="w", justify="left")
         self.opt_label2.grid(row=1, column=2,padx=10, pady=(10, 10),sticky="w")
         self.windturbine_image = customtkinter.CTkImage(light_image=Image.open(path.join(self.image_path, "windturbine_dark.png")),
                                                  dark_image=Image.open(path.join(self.image_path, "windturbine_light.png")), size=(30, 30))
-        self.opt_image2 = customtkinter.CTkLabel(self.results_frame, text="" , image='')
+        self.opt_image2 = customtkinter.CTkLabel(self.results_frame, text="" , image=None)
         self.opt_image2.grid(row=2, column=1,padx=10, pady=(10, 10),sticky='e')
         self.opt_label3 = customtkinter.CTkLabel(self.results_frame, text="" , font=customtkinter.CTkFont(size=12, weight="normal"), anchor="w", justify="left")
         self.opt_label3.grid(row=2, column=2,padx=10, pady=(10, 10),sticky="w")
-        self.my_tree3 = ttk.Treeview(self.results_frame,selectmode="extended", height=9)
+        self.my_tree3 = ttk.Treeview(self.results_frame, selectmode="extended", height=9)
         self.my_tree3['columns']= ("Name", "Value", "Unit")
         self.my_tree3['show']='headings'
         for col in self.my_tree3["columns"]:
@@ -953,6 +999,7 @@ class App(customtkinter.CTk):
             self.h2_storage_label_2_3.grid_forget()
         self.h2_storage_entry_3.delete(0, END)
         self.h2_storage_entry_3.insert(END,self.h2_storage_scenarios_indexed.loc[h2_storage_scenario,'Max Capacity'])
+    
 
     #Define a callback function
     def callback(self,url):
@@ -991,9 +1038,7 @@ class App(customtkinter.CTk):
         self.my_tree2.grid(row=0,column=0,padx=5,sticky="ew")
         #activate button 2
         #my_button_2.configure(state=NORMAL)
-
-
-        
+            
     def update_label_status(self, text):
         self.opt_label_status.configure(text=text)
 
@@ -1542,7 +1587,6 @@ class App(customtkinter.CTk):
         #self.instance.display()
 
     def outputFile(self):
-        from pyomo.environ import value
         #setting up structure in order to get out decision variables (and objective) and save in correct excel format
         singleDecisionVariables = [     "windCapacity","solarCapacity","bsPowerCapacity","bsEnergyCapacity","h2Storage",
                                         "totalSystemCost","LCOH","windCosts","solarCosts","eyCosts","bsPowerCosts","bsEnergyCosts","h2StorageCosts",
@@ -2051,6 +2095,8 @@ class App(customtkinter.CTk):
         pv_amount_cell.value=self.eylca_data.loc['Electrolyser Efficiency',0]*(self.lca_data.loc['solarCapacity','Value']/(self.lca_data.loc['solarCapacity','Value']+self.lca_data.loc['windCapacity','Value']))
         wind_amount_cell=lca_sheet.cell(row=14, column=2)
         wind_amount_cell.value=self.eylca_data.loc['Electrolyser Efficiency',0]*(self.lca_data.loc['windCapacity','Value']/(self.lca_data.loc['solarCapacity','Value']+self.lca_data.loc['windCapacity','Value']))
+        battery_amount_cell=lca_sheet.cell(row=16, column=2)
+        battery_amount_cell.value=(self.lca_data.loc['bsEnergyCapacity','Value']*1000000/120/(365*self.lca_data.loc['lifetime','Value']*self.lca_data.loc['AveragDailyH2Prod','Value']))
 
         lca_workbook.active = lca_workbook['pv_electricity']
         lca_sheet = lca_workbook.active
@@ -2089,19 +2135,17 @@ class App(customtkinter.CTk):
         del bd.databases['e-Hydrogen LCA']
 
         # Import foreground data if not already imported
-        if 'e-Hydrogen LCA' in bd.databases:
-            print('✅ Selected foreground data already imported.')
-        else:
-            fg_db = bi.ExcelImporter(path.join(self.dat_path, 'e_Hydrogen_LCA.xlsx'))
-            # Match foreground data internally (to itself)
-            fg_db.apply_strategies()
-            fg_db.match_database(fields=["name", "unit", "reference product", "location"])
-            # Match foreground data to Ecoinvent datasets and biosphere
-            fg_db.match_database('ecoinvent_3_10_1_selected_datasets', fields=["name", "unit", "location", "reference product"])
-            fg_db.match_database("ecoinvent-3.10-biosphere", fields=["name", "categories", "location"])
-            fg_db.statistics()  # Display statistics about the matching process
-            print(list(fg_db.unlinked))
-            fg_db.write_database()  # Save the foreground database
+
+        fg_db = bi.ExcelImporter(path.join(self.dat_path, 'e_Hydrogen_LCA.xlsx'))
+        # Match foreground data internally (to itself)
+        fg_db.apply_strategies()
+        fg_db.match_database(fields=["name", "unit", "reference product", "location"])
+        # Match foreground data to Ecoinvent datasets and biosphere
+        fg_db.match_database('ecoinvent_3_10_1_selected_datasets', fields=["name", "unit", "location", "reference product"])
+        fg_db.match_database("ecoinvent-3.10-biosphere", fields=["name", "categories", "location"])
+        fg_db.statistics()  # Display statistics about the matching process
+        print(list(fg_db.unlinked))
+        fg_db.write_database()  # Save the foreground database
 
         # Access the foreground database and display its details
         fg_db = bd.Database('e-Hydrogen LCA')
@@ -2185,15 +2229,15 @@ class App(customtkinter.CTk):
                 #orientations.append(1)  # Orientation for child
                 #pathlengths.append(0.7)
 
-        if len(flows) == 4:
-            orientations = [0,1,0,-1]
-            pathlengths = [3,0.25,1,0.25]
-        elif len(flows) == 5:
+        if len(flows) == 5:
             orientations = [0,1,1,0,-1]
             pathlengths = [4,1,1,0.25,0.25]
         elif len(flows) == 6:
             orientations = [0,1,1,1,0,-1]
             pathlengths = [4,1,1,1,0.25,0.25]
+        elif len(flows) == 7:
+            orientations = [0,1,1,1,0,-1,-1]
+            pathlengths = [4,1,1,1,1,1,0.25]
 
         # Create the Sankey diagram
         fig6 = plt.figure(figsize=(8,6), dpi=72)
