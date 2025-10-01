@@ -82,7 +82,6 @@ import re
 
 # Time and timezone
 import pytz
-from timezonefinder import TimezoneFinder
 from datetime import datetime
 
 # Overriding the environment variable to set a new Brightway2 directory
@@ -272,7 +271,7 @@ class App(customtkinter.CTk):
         self.param_frame.grid_columnconfigure((3), weight=1)
         self.param_frame.grid_rowconfigure((23), weight=1)
         self.param_label1 = customtkinter.CTkLabel(self.param_frame, text="General System Parameters:", font=customtkinter.CTkFont(size=14, weight="bold"), anchor="nw")
-        self.param_label1.grid(row=0, column=0, columnspan=3, padx=10, pady=(0, 0),sticky="nsew")
+        self.param_label1.grid(row=0, column=0, columnspan=3, padx=5, pady=(0, 0),sticky="nsew")
 
         self.param_label_2 = customtkinter.CTkLabel(self.param_frame, text="Simulation Lifetime", font=customtkinter.CTkFont(size=12), anchor="e")
         self.param_label_2.grid(row=1, column=0, padx=10,sticky="nsew")
@@ -309,7 +308,7 @@ class App(customtkinter.CTk):
         
         # scrollable dropdown #1 (Combobox alternative)
         self.pv_option_menu = ttk.Combobox(self.param_frame, values=self.pv_scenarios, state="readonly", width=20)
-        self.pv_option_menu.grid(row=6, column=1, padx=0,columnspan=2)
+        self.pv_option_menu.grid(row=6, column=1, padx=0,columnspan=1)
         self.pv_option_menu.current(0)
         self.pv_option_menu.bind("<<ComboboxSelected>>", lambda e: (self.pv_scenario_set(self.pv_option_menu.get())))
 
@@ -338,7 +337,7 @@ class App(customtkinter.CTk):
 
         # scrollable dropdown #2 (Combobox alternative)
         self.wt_option_menu = ttk.Combobox(self.param_frame, values=self.wt_scenarios, state="readonly", width=20)
-        self.wt_option_menu.grid(row=10, column=1, padx=0, columnspan=2)
+        self.wt_option_menu.grid(row=10, column=1, padx=0, columnspan=1)
         self.wt_option_menu.current(0)
         self.wt_option_menu.bind("<<ComboboxSelected>>", lambda e: (self.wt_scenario_set(self.wt_option_menu.get())))
 
@@ -367,7 +366,7 @@ class App(customtkinter.CTk):
         
         # scrollable dropdown #3 (Combobox alternative)
         self.storage_option_menu = ttk.Combobox(self.param_frame, values=self.storage_scenarios, state="readonly", width=20)
-        self.storage_option_menu.grid(row=14, column=1, padx=0, columnspan=2)
+        self.storage_option_menu.grid(row=14, column=1, padx=0, columnspan=1)
         self.storage_option_menu.current(0)
         self.storage_option_menu.bind("<<ComboboxSelected>>", lambda e: (self.storage_scenario_set(self.storage_option_menu.get())))
 
@@ -1895,18 +1894,16 @@ class App(customtkinter.CTk):
     def get_utc_offset(self):
         lon = float(self.location_entry_long.get())
         lat = float(self.location_entry_lat.get())
-        # Get the current UTC time
-        current_utc_time = datetime.utcnow()
-        # Find the timezone based on latitude and longitude
-        tf = TimezoneFinder()
-        timezone_str = tf.timezone_at(lat=lat, lng=lon)
-        if timezone_str is None:
-            raise ValueError("Could not determine the timezone for the given coordinates.")
-        # Get the timezone object
-        timezone = pytz.timezone(timezone_str)
-        # Get the UTC offset for the given date
-        local_time = timezone.localize(current_utc_time)
-        self.utc_offset = local_time.utcoffset().total_seconds() / 3600  # Convert seconds to hours
+        
+        # Simple UTC offset calculation based on longitude
+        # Each 15 degrees of longitude represents 1 hour of time difference
+        # Longitude ranges from -180 to +180, UTC offset ranges from -12 to +12
+        self.utc_offset = round(lon / 15.0)
+        
+        # Clamp to valid UTC offset range (-12 to +14 hours)
+        self.utc_offset = max(-12, min(14, self.utc_offset))
+        
+        print(f"Calculated UTC offset: {self.utc_offset} hours for longitude {lon}")
         print(self.utc_offset) 
 
     def create_bar_chart(self):

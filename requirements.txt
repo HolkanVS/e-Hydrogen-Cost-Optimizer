@@ -10,7 +10,6 @@ pandas          # depends on numpy<2
 matplotlib
 pyomo
 openpyxl
-timezonefinder
 
 # Platform-specific / solver
 brightway25; sys_platform == "darwin"  # MacOS Apple Silicon
