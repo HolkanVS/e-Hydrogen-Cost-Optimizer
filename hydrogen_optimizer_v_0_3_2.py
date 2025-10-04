@@ -1,23 +1,21 @@
 # e-Hydrogen Cost Optimizer by KAUST (v.0.3.2)
-
-# This program is free software: you can redistribute it and/or modify
+#------------------------------------------------------------------------------------------------------
+# Apache-2.0 License
+#------------------------------------------------------------------------------------------------------
 # v.0.3.2 Release notes
 # - Added hourly optimization (hydrogen daily demand is converted into an uniform hourly demand)
 # - Added total hydrogen produced in the time series plot 
 # - Added battery in the LCA analysis
 # - Replace CTkScrollableDropdown with ttk.Combobox (more stable)
 # - Stated top level libraries required to run the code
-
-
-
+# - Added exception handlers for optimization threading
+# - Added button to visit e-h2.org website
+# - Added LCOE tab 
+#------------------------------------------------------------------------------------------------------
 #Libraries: 
 # Hereby we state the installation of some libaries that are required to run the code. 
-# Please use the requirements.txt file to install the libraries.
-# pip list --not-required
-# This shows only the top-level packages (the ones you installed manually). Dependencies won’t appear.
+# Please use the requirements.txt file to install the libraries or install them manually as shown below.
 #------------------------------------------------------------------------------------------------------
-#Verified:
-
 #pip install customtkinter
 #pip install tkcalendar
 #pip install Pillow
@@ -31,10 +29,10 @@
 #pip install brightway25 (MacOS Apple Silicon)
 #pip install brightway25 pypardiso (Windows)
 #pip install highspy (if using HiGHS solver)
-
+#------------------------------------------------------------------------------------------------------
+#Main code starts here
 
 # Import necessary libraries
-
 # Tkinter and extensions
 from tkinter import *
 from tkinter import ttk, filedialog, messagebox
@@ -48,41 +46,36 @@ from tkcalendar import DateEntry
 # Images and mapping
 from PIL import Image, ImageTk
 from tkintermapview import TkinterMapView
-
 # Data and math
 import numpy as np
 import pandas as pd
 import math
-
 # Threading and OS
 import threading
 import os
 from os import path
-
 # Plotting
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.sankey import Sankey
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-
 # Optimization
 from pyomo.environ import *
 from pyomo.environ import value
-
 # Web and IO
 import requests
 import json
 from io import StringIO
 import webbrowser
-
 # Excel and regex
 from openpyxl import load_workbook
 import re
-
 # Time and timezone
 import pytz
 from datetime import datetime
+# Traceback
+import traceback
 
 # Overriding the environment variable to set a new Brightway2 directory
 dat_path = path.abspath(path.join(path.dirname(path.realpath(__file__)), "modelInputs"))
@@ -98,21 +91,22 @@ import bw2io as bi
 import bw2calc as bc
 import bw2analyzer as bwa
 
+# Set appearance mode and default color theme
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 customtkinter.deactivate_automatic_dpi_awareness()
 
+# Fix for ttk.Combobox bug with CustomTkinter CTkScrollableFrame
 # Save the original method
 _original_check = customtkinter.windows.widgets.ctk_scrollable_frame.CTkScrollableFrame.check_if_master_is_canvas
-
 def safe_check_if_master_is_canvas(self, widget):
     if isinstance(widget, str):   # The buggy case (ttk.Combobox popup sends a string)
         return False
     return _original_check(self, widget)  # Fallback to original logic
-
 # Override with safe version
 customtkinter.windows.widgets.ctk_scrollable_frame.CTkScrollableFrame.check_if_master_is_canvas = safe_check_if_master_is_canvas
 
+# Main application class
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -146,7 +140,7 @@ class App(customtkinter.CTk):
         # Create sidebar frame with widgets
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, rowspan=3, sticky="nsew")
-        self.sidebar_frame.grid_rowconfigure(9, weight=1)
+        self.sidebar_frame.grid_rowconfigure(10, weight=1)
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="e-Hydrogen \n Cost Optimizer", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 0))
         self.sidebar_frame_label1 = customtkinter.CTkLabel(self.sidebar_frame, text="", image=self.logo_image)
@@ -184,26 +178,39 @@ class App(customtkinter.CTk):
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                       image=self.pie_chart_image, anchor="w", command=self.frame_5_button_event)
         self.frame_5_button.grid(row=6, column=0, sticky="ew")
-        
+
+        self.electricity_image = customtkinter.CTkImage(light_image=Image.open(path.join(self.image_path, "electricity_dark.png")),
+                                                 dark_image=Image.open(path.join(self.image_path, "electricity_light.png")), size=(20, 20))
+        self.frame_6_button = customtkinter.CTkButton(self.sidebar_frame, corner_radius=0, height=40, border_spacing=10, text="LCOE Analysis",
+                                                      fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
+                                                      image=self.electricity_image, anchor="w", command=self.frame_6_button_event)
+        self.frame_6_button.grid(row=7, column=0, sticky="ew")
+
         self.renewables_image = customtkinter.CTkImage(light_image=Image.open(path.join(self.image_path, "renewables_dark.png")),
                                                  dark_image=Image.open(path.join(self.image_path, "renewables_light.png")), size=(20, 20))
-        self.frame_6_button = customtkinter.CTkButton(self.sidebar_frame, corner_radius=0, height=40, border_spacing=10, text="Renewables Analysis",
+        self.frame_7_button = customtkinter.CTkButton(self.sidebar_frame, corner_radius=0, height=40, border_spacing=10, text="Renewables Analysis",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
-                                                      image=self.renewables_image, anchor="w", command=self.frame_6_button_event)
-        self.frame_6_button.grid(row=7, column=0, sticky="ew")
+                                                      image=self.renewables_image, anchor="w", command=self.frame_7_button_event)
+        self.frame_7_button.grid(row=8, column=0, sticky="ew")
 
         self.co2_image = customtkinter.CTkImage(light_image=Image.open(path.join(self.image_path, "co2_dark.png")),
                                                  dark_image=Image.open(path.join(self.image_path, "co2_light.png")), size=(20, 20))
-        self.frame_7_button = customtkinter.CTkButton(self.sidebar_frame, corner_radius=0, height=40, border_spacing=10, text="Life Cycle Assessment",
+        self.frame_8_button = customtkinter.CTkButton(self.sidebar_frame, corner_radius=0, height=40, border_spacing=10, text="Life Cycle Assessment",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
-                                                      image=self.co2_image, anchor="w", command=self.frame_7_button_event)
-        self.frame_7_button.grid(row=8, column=0, sticky="ew")
+                                                      image=self.co2_image, anchor="w", command=self.frame_8_button_event)
+        self.frame_8_button.grid(row=9, column=0, sticky="ew")
+
+        # Website button
+        self.website_button = customtkinter.CTkButton(self.sidebar_frame, corner_radius=6, height=30, border_spacing=5, 
+                                  text="🌐 Visit e-h2.org", fg_color="#0da832", hover_color="darkgreen",
+                                  text_color="white", command=lambda: self.callback("https://e-h2.org"))
+        self.website_button.grid(row=11, column=0, padx=20, pady=5, sticky="ew")
 
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
-        self.appearance_mode_label.grid(row=10, column=0, padx=20, pady=(10, 0))
+        self.appearance_mode_label.grid(row=12, column=0, padx=20, pady=(10, 0))
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],
                                                                        command=self.change_appearance_mode_event)
-        self.appearance_mode_optionemenu.grid(row=11, column=0, padx=20, pady=(0, 10))
+        self.appearance_mode_optionemenu.grid(row=13, column=0, padx=20, pady=(0, 10))
         #self.scaling_label = customtkinter.CTkLabel(self.sidebar_frame, text="UI Scaling:", anchor="w")
         #self.scaling_label.grid(row=12, column=0, padx=20, pady=(10, 0))
         #self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["80%", "90%", "100%", "110%", "120%"],
@@ -265,7 +272,7 @@ class App(customtkinter.CTk):
         self.h2_storage_scenarios_indexed.set_index('Scenario',inplace=True)
         self.h2_storage_scenarios=self.h2_storage_scenarios_indexed.index.tolist()
 
-        # Create frame 
+        # First frame 
         self.param_frame = customtkinter.CTkScrollableFrame(self.home_frame)
         self.param_frame.grid(row=0, column=1, rowspan=2, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.param_frame.grid_columnconfigure((3), weight=1)
@@ -426,47 +433,8 @@ class App(customtkinter.CTk):
         self.param_entry_24.grid(row=23,column=1,padx=(0))
         self.param_label_24_2 = customtkinter.CTkLabel(self.param_frame, text= 'kW', font=customtkinter.CTkFont(size=12), anchor="w")
         self.param_label_24_2.grid(row=23, column=2,sticky="nsew")
-       
 
-        '''
-        #create optimization frame
-        self.opt_frame = customtkinter.CTkFrame(self.home_frame)
-        self.opt_frame.grid(row=1, column=1, padx=(20, 20), pady=(20, 00), sticky="nsew")
-        self.opt_frame.grid_columnconfigure((3), weight=1)
-        self.opt_frame.grid_rowconfigure(4, weight=1)
-        self.opt_label1 = customtkinter.CTkLabel(self.opt_frame, text="Optimization:", font=customtkinter.CTkFont(size=14, weight="bold"), anchor="nw")
-        self.opt_label1.grid(row=0, column=0, padx=10, pady=(10, 0),sticky="nsew")
-        self.opt_label_status = customtkinter.CTkLabel(self.opt_frame, text="", font=customtkinter.CTkFont(size=10, weight="normal"), anchor="e")
-        self.opt_label_status.grid(row=0, column=2,columnspan=2, padx=10, pady=(10, 0),sticky="nsew")
-        self.opt_button_1 = customtkinter.CTkButton(self.opt_frame, text="Optimize LCOH: Yearly demand", width=250, command=self.optimization_yearly)
-        self.opt_button_1.grid(row=1, column=0, columnspan=2, padx=10, pady=10,sticky="ew")
-        self.opt_button_2 = customtkinter.CTkButton(self.opt_frame, text="Optimize LCOH: Daily demand",fg_color="#3cb0c2",hover_color="#328d9c", command=self.optimization_daily)
-        self.opt_button_2.grid(row=1, column=2, columnspan=2, padx=10, pady=10,sticky="ew")
-        self.pv_image = customtkinter.CTkImage(light_image=Image.open(path.join(self.image_path, "pv_dark.png")),
-                                                 dark_image=Image.open(path.join(self.image_path, "pv_light.png")), size=(30, 30))
-        self.opt_image1 = customtkinter.CTkLabel(self.opt_frame, text="" , image="")
-        self.opt_image1.grid(row=2, column=0,padx=10, pady=(10, 10),sticky='e')
-        self.opt_label2 = customtkinter.CTkLabel(self.opt_frame, text="" , font=customtkinter.CTkFont(size=12, weight="normal"), anchor="w", justify="left")
-        self.opt_label2.grid(row=2, column=1,padx=10, pady=(10, 10),sticky="w")
-        self.windturbine_image = customtkinter.CTkImage(light_image=Image.open(path.join(self.image_path, "windturbine_dark.png")),
-                                                 dark_image=Image.open(path.join(self.image_path, "windturbine_light.png")), size=(30, 30))
-        self.opt_image2 = customtkinter.CTkLabel(self.opt_frame, text="" , image="")
-        self.opt_image2.grid(row=2, column=2,padx=10, pady=(10, 10),sticky='e')
-        self.opt_label3 = customtkinter.CTkLabel(self.opt_frame, text="" , font=customtkinter.CTkFont(size=12, weight="normal"), anchor="w", justify="left")
-        self.opt_label3.grid(row=2, column=3,padx=10, pady=(10, 10),sticky="w")
-        self.my_tree3 = ttk.Treeview(self.opt_frame,selectmode="extended", height=9)
-        self.my_tree3['columns']= ("Name", "Value", "Unit")
-        self.my_tree3['show']='headings'
-        for col in self.my_tree3["columns"]:
-            self.my_tree3.heading(col,text=col)
-        self.my_tree3.column('Name',anchor='w',width=130)
-        self.my_tree3.column('Value',anchor='center',width=60)
-        self.my_tree3.column('Unit',anchor='w',width=40)
-        #self.opt_label4 = customtkinter.CTkLabel(self.opt_frame, text="" , font=customtkinter.CTkFont(size=14, weight="normal"), anchor="w", justify="left")
-        #self.opt_label4.grid(row=3, column=0,columnspan=2, padx=10, pady=(10, 10),sticky="nsew")
-        '''
-
-        # create second  main frame
+        # Second frame
         self.second_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
         #create water desalination frame
         self.water_desalination_frame = customtkinter.CTkFrame(self.second_frame)
@@ -572,7 +540,7 @@ class App(customtkinter.CTk):
         self.h2_storage_label_3_2 = customtkinter.CTkLabel(self.h2_storage_frame, text= 'kg H'+ u'\u2082', font=('Arial',12), anchor="w")
         self.h2_storage_label_3_2.grid(row=3, column=3,pady=(0,20),sticky="nsew")
         
-        # create third  main frame
+        # Third frame
         self.third_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
         #create optimization frame
         self.optimization_frame = customtkinter.CTkFrame(self.third_frame)
@@ -616,7 +584,7 @@ class App(customtkinter.CTk):
         self.my_tree3.column('Value',anchor='center',width=60)
         self.my_tree3.column('Unit',anchor='w',width=50)
 
-        # create fourth main frame
+        # Fourth frame
         self.fourth_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
         #create time graph frame
         self.time_graph_frame = customtkinter.CTkFrame(self.fourth_frame)
@@ -637,7 +605,7 @@ class App(customtkinter.CTk):
         self.time_seg_button_1.configure(values=["Day", "Week"])
         self.time_seg_button_1.grid(row=1, column=2, padx=30, pady=10, sticky="ew")
 
-        # create fifth main frame
+        # Fifth frame
         self.fifth_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
 
         #create analysis frame
@@ -650,11 +618,26 @@ class App(customtkinter.CTk):
         self.analysis_button_1 = customtkinter.CTkButton(self.analysis_frame, text="Graph",command=self.create_bar_chart)
         self.analysis_button_1.grid(row=0, column=1, padx=30, pady=10,sticky="ew")
 
-        # create sixth main frame
+        # Sixth frame
         self.sixth_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        
+        # LCOE analysis frame
+        self.lcoe_frame = customtkinter.CTkFrame(self.sixth_frame)
+        self.lcoe_frame.grid(row=0, column=0, padx=(20, 20), pady=(20, 0), sticky="nsew")
+        self.lcoe_frame.grid_columnconfigure(1, weight=1)
+        self.lcoe_frame.grid_rowconfigure(2, weight=1)
+        self.lcoe_label1 = customtkinter.CTkLabel(self.lcoe_frame, text="LCOE Analysis:", font=customtkinter.CTkFont(size=14, weight="bold"), anchor='nw')
+        self.lcoe_label1.grid(row=0, column=0, padx=10, pady=(10, 0), sticky='nsew')
+        self.lcoe_button_1 = customtkinter.CTkButton(self.lcoe_frame, text="Calculate LCOE", command=lambda: self.display_lcoe_simple())
+        self.lcoe_button_1.grid(row=0, column=1, padx=30, pady=10, sticky="ew")
+
+        # create sixth main frame
+
+        # Seventh frame
+        self.seventh_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
 
         #create renewables analysis frame
-        self.re_analysis_frame = customtkinter.CTkFrame(self.sixth_frame)
+        self.re_analysis_frame = customtkinter.CTkFrame(self.seventh_frame)
         self.re_analysis_frame.grid(row=0, column=0, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.re_analysis_frame.grid_columnconfigure(1, weight=1)
         self.re_analysis_frame.grid_rowconfigure((1,3), weight=1)
@@ -663,13 +646,13 @@ class App(customtkinter.CTk):
         self.re_analysis_button_1 = customtkinter.CTkButton(self.re_analysis_frame, text="Graph",command=self.create_re_dist)
         self.re_analysis_button_1.grid(row=0, column=1, padx=30, pady=10,sticky="ew")
 
-        # Create seventh main frame
-        self.seventh_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.seventh_frame.grid_rowconfigure((0),weight=1)
-        self.seventh_frame.grid_rowconfigure((1),weight=1,minsize=550)
+        # Eighth frame
+        self.eighth_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.eighth_frame.grid_rowconfigure((0),weight=1)
+        self.eighth_frame.grid_rowconfigure((1),weight=1,minsize=550)
 
         # create LCIA frame
-        self.lcia_frame = customtkinter.CTkFrame(self.seventh_frame, height=150)
+        self.lcia_frame = customtkinter.CTkFrame(self.eighth_frame, height=150)
         self.lcia_frame.grid(row=0, column=0, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.lcia_frame.grid_columnconfigure((3), weight=1)
         self.lcia_frame.grid_rowconfigure((2), weight=1)
@@ -684,7 +667,7 @@ class App(customtkinter.CTk):
         self.lcia_button_1.grid(row=1, column=2, padx=20, columnspan=2, pady=(0,20) ,sticky="ew")
 
         # Create LCA Results frame
-        self.lca_results_frame = customtkinter.CTkFrame(self.seventh_frame,height=500)
+        self.lca_results_frame = customtkinter.CTkFrame(self.eighth_frame,height=500)
         self.lca_results_frame.grid(row=1, column=0, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.lca_results_frame.grid_columnconfigure((2), weight=1)
         self.lca_results_frame.grid_rowconfigure((2), weight=1)
@@ -701,6 +684,7 @@ class App(customtkinter.CTk):
         self.appearance_mode_optionemenu.set('Light')
         #self.scaling_optionemenu.set("100%")
         self.textbox.insert("0.0", "Welcome to the e-Hydrogen Cost Optimizer developed by KAUST! \n\n"
+                             + "Visit our website: https://e-h2.org for more information and updates.\n\n"
                              + "Please follow the steps: \n 1. Enter the location coordinates.\n"
                              +" 2. Type in the system parameters in the 'Home' tab.\n"
                              +" 3. Type in the water desalination, electrolyser and hydrogen storage settings in the 'Hydrogen Production' tab.\n"
@@ -708,7 +692,8 @@ class App(customtkinter.CTk):
                              +" 5. Go to the 'Explore Time Series' tab to view in detail how the electricity production happens in a day or week.\n"
                              +" 6. Go to the 'LCOH Analysis' tab to view in detail how the LCOH is distributed among the components used in the outcome model.\n"
                              +" 7. Go to the 'Renewables' tab to analyse the distribution of both Solar PV and Wind power of the location selected.\n"
-                             +" 8. In order to explore further the outcome model, please go to the root folder of the app /_internal/modelOutputs/results.xlsx\n\n"
+                             +" 8. In order to explore further the outcome model, please go to the root folder of the app /_internal/modelOutputs/results.xlsx\n"
+                             +" 9. Go to the Life Cycle Assessment tab to perform an LCA and view the contribution analysis of the components used in the outcome model.\n\n"
                              +" Notes:\n"
                              +" The electricity production profile from PV panels and wind turbines are extracted from year 2023 from renewables.ninja. Therefore, you need to have a connection to Internet. ")
         self.location_map_widget.set_position(22.31, 39.10) # KAUST coordinates
@@ -770,6 +755,13 @@ class App(customtkinter.CTk):
                 self.seventh_frame.grid_rowconfigure(0, weight=1)
             else:
                 self.seventh_frame.grid_forget()
+            if name == "frame_8":
+                self.eighth_frame.grid(row=0, column=1, rowspan=2, columnspan=2, padx=(0, 0), pady=(0, 0), sticky="nsew")
+                self.eighth_frame.grid_columnconfigure(0, weight=1)
+                self.eighth_frame.grid_rowconfigure(0, weight=1)
+            else:
+                self.eighth_frame.grid_forget()
+    
 
     def home_button_event(self):
         self.select_frame_by_name("home")
@@ -791,6 +783,9 @@ class App(customtkinter.CTk):
 
     def frame_7_button_event(self):
         self.select_frame_by_name("frame_7")
+
+    def frame_8_button_event(self):
+        self.select_frame_by_name("frame_8")
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
@@ -1053,13 +1048,9 @@ class App(customtkinter.CTk):
                 print("Test mode activated but one of files already deleted")
     
     def retrievedata(self):
-        try:
-            if not self.coordinates_submitted:
-                raise ValueError('Coordinates have not been submitted yet')
-            print('Coordinates have been submitted. Proceeding with operations...')
-        except ValueError as e:
-            messagebox.showerror("Woah!", f'Coordinates have not been submitted yet')
-            self.update_label_status("Optimization failed")
+        if not self.coordinates_submitted:
+            raise ValueError('Coordinates have not been submitted yet')
+        print('Coordinates have been submitted. Proceeding with operations...')
         #variables to retrieve data from renewables.ninja
         token = '115de2fecd16dd5808c714573e4af3a1833f83e0'
         api_base = 'https://www.renewables.ninja/api/'
@@ -1123,41 +1114,37 @@ class App(customtkinter.CTk):
         self.opt_label3.configure(text=f"{self.wind_data_year} kWh/kWp*year")         
 
     def data_pretreatment(self):
-        try:
-            float(self.param_entry_2.get())
-            float(self.param_entry_3.get())
-            float(self.param_entry_4.get())
-            float(self.param_entry_5.get())
-            float(self.param_entry_8.get())
-            float(self.param_entry_9.get())
-            float(self.param_entry_10.get())
-            float(self.param_entry_12.get())
-            float(self.param_entry_13.get())
-            float(self.param_entry_14.get())
-            float(self.param_entry_16.get())
-            float(self.param_entry_17.get())
-            float(self.param_entry_18.get())
-            float(self.param_entry_19.get())
-            float(self.param_entry_20.get())
-            float(self.param_entry_21.get())
-            float(self.param_entry_22.get())
-            float(self.param_entry_23.get())
-            float(self.param_entry_24.get())
+        # Validate all system parameters are numbers (will raise ValueError if not)
+        float(self.param_entry_2.get())
+        float(self.param_entry_3.get())
+        float(self.param_entry_4.get())
+        float(self.param_entry_5.get())
+        float(self.param_entry_8.get())
+        float(self.param_entry_9.get())
+        float(self.param_entry_10.get())
+        float(self.param_entry_12.get())
+        float(self.param_entry_13.get())
+        float(self.param_entry_14.get())
+        float(self.param_entry_16.get())
+        float(self.param_entry_17.get())
+        float(self.param_entry_18.get())
+        float(self.param_entry_19.get())
+        float(self.param_entry_20.get())
+        float(self.param_entry_21.get())
+        float(self.param_entry_22.get())
+        float(self.param_entry_23.get())
+        float(self.param_entry_24.get())
 
-        except:
-            messagebox.showerror("Woah!", f'At least one entry for the System parameters is not a number')
-            self.update_label_status("Optimization failed")
-        try:
-            float(self.water_entry.get())
-            float(self.water_entry_2.get())
-            float(self.electrolyser_entry.get())
-            float(self.electrolyser_entry_2.get())
-            float(self.electrolyser_entry_3.get())
-            float(self.electrolyser_entry_4.get())
-            float(self.electrolyser_entry_5.get())
-        except:
-            messagebox.showerror("Woah!", f'At least one entry for the Electrolyser parameters is not a number')
-            self.update_label_status("Optimization failed")
+        float(self.water_entry.get())
+        float(self.water_entry_2.get())
+        float(self.electrolyser_entry.get())
+        float(self.electrolyser_entry_2.get())
+        float(self.electrolyser_entry_3.get())
+        float(self.electrolyser_entry_4.get())
+        float(self.electrolyser_entry_5.get())
+        float(self.h2_storage_entry.get())
+        float(self.h2_storage_entry_2.get())
+        float(self.h2_storage_entry_3.get())
         
         #adding pv and wind data to a dict named inputDataset
         transmissionLosses = .02
@@ -1582,6 +1569,7 @@ class App(customtkinter.CTk):
         self.instance = model.create_instance(data)
         solver = SolverFactory("appsi_highs")
         result = solver.solve(self.instance)
+        
         #result.write()
         #self.instance.display()
 
@@ -1750,6 +1738,8 @@ class App(customtkinter.CTk):
         daily_hydrogen_produced = round(self.results_data.loc[0,'AveragDailyH2Prod'])
         #ey_capacity_2= self.results_ey_data.loc['Capacity', 1]
         #ey_capacity_factor_2 = self.results_ey_data.loc['Capacity Factor', 1]
+        lcoe_results = self.calculate_lcoe(include_hydrogen_system=True)
+
         self.my_tree3.delete(*self.my_tree3.get_children())
         self.my_tree3.insert(parent='',index='end',iid=0,text="",values=("LCOH",f"{lcoh:.2f}","$/kgH2"))
         self.my_tree3.insert(parent='',index='end',iid=1,text="",values=("Wind Capacity",f"{wind_capacity:.2f}","MW"))
@@ -1762,7 +1752,9 @@ class App(customtkinter.CTk):
         self.my_tree3.insert(parent='',index='end',iid=8,text="",values=("Average daily H2",f"{daily_hydrogen_produced}","kg"))
         #self.my_tree3.insert(parent='',index='end',iid=7,text="",values=("Electrolyser 2 Cap.",f"{ey_capacity_2:.2f}","MW"))
         #self.my_tree3.insert(parent='',index='end',iid=8,text="",values=("Electrolyser 2 CF",f"{ey_capacity_factor_2:.2f}",""))
+        #self.my_tree3.insert(parent='',index='end',iid=9,text="",values=("LCOE",f"{lcoe_results['lcoe']:.2f}","$/MWh"))
         self.my_tree3.grid(row=3,column=1,columnspan=2,rowspan=2,padx=10,sticky='w')
+
 
         # Make piechart
         pie_chart_labels =  ['Wind',' PV' , ' Electrolyser' , 'Battery' , 'H2 Storage' , 'Water Desalination']
@@ -2074,10 +2066,13 @@ class App(customtkinter.CTk):
         toolbar.grid(row=4, column=0, padx=10, columnspan=2,sticky='ew')
 
     def perform_lca(self):
-        # Read the results excel file
-        self.eylca_data = pd.read_excel(path.join(self.output_path, "results.xlsx"),sheet_name='singleEyValueDvs', index_col=0)
-        self.lca_data = pd.read_excel(path.join(self.output_path, "results.xlsx"),sheet_name='singleValueDvs', index_col=0)
-
+        try:
+            # Read the results excel file
+            self.eylca_data = pd.read_excel(path.join(self.output_path, "results.xlsx"),sheet_name='singleEyValueDvs', index_col=0)
+            self.lca_data = pd.read_excel(path.join(self.output_path, "results.xlsx"),sheet_name='singleValueDvs', index_col=0)
+        except FileNotFoundError:
+            messagebox.showerror("Error", "Results file not found. Please run the optimization first.")
+            return
 
         # Modify excel file "e_Hydrogen_LCA.xlsx" containing LCI data , see 'formula' column for each activity
         lca_workbook = load_workbook(path.join(self.dat_path, 'e_Hydrogen_LCA.xlsx'))
@@ -2290,22 +2285,211 @@ class App(customtkinter.CTk):
         self.check_thread_status()
 
     def run_optimization(self):
-        self.TestMode = True
-        self.deleteFiles()
-        self.retrievedata()
-        self.data_pretreatment()
-        self.writeDataFile()
-        self.pyomo_opt()  # This is your optimization function
-        self.outputFile()
+        try:
+            self.TestMode = True
+            self.deleteFiles()
+            self.retrievedata()
+            self.data_pretreatment()
+            self.writeDataFile()
+            self.pyomo_opt()
+            self.outputFile()
+            self.show_results()
+        except ValueError as e:
+            print(f"ValueError in optimization thread: {e}")
+            # Provide specific error messages based on the error content
+            error_msg = str(e)
+            if 'Coordinates have not been submitted' in error_msg:
+                self.after(0, lambda: messagebox.showerror("Error", "Coordinates have not been submitted yet.\n\nPlease enter valid latitude and longitude coordinates and click 'Submit Coordinates' before running the optimization."))
+                self.after(0, lambda: self.update_label_status("Optimization failed: Coordinates not submitted"))
+            elif 'could not convert string to float' in error_msg.lower():
+                self.after(0, lambda: messagebox.showerror("Input Error", "Invalid numeric input detected.\n\nPlease check that all numeric fields contain valid numbers (no text or special characters)."))
+                self.after(0, lambda: self.update_label_status("Optimization failed: Invalid numeric input"))
+            else:
+                self.after(0, lambda: messagebox.showerror("Input Error", f"Input validation error:\n\n{error_msg}"))
+                self.after(0, lambda: self.update_label_status("Optimization failed: Invalid input data"))
+            return  # Exit the thread
+        except RuntimeError as e:
+            print(f"Unexpected error in optimization thread: {e}")
+            # Show general error message for unexpected errors
+            self.after(0, lambda: messagebox.showerror("Optimization Error", 'Solver failed to find an optimal solution.\n\nThis may be due to overly strict constraints or incompatible input parameters.\n\nPlease review your inputs and try again.'))
+            self.after(0, lambda: self.update_label_status(f"Optimization failed: 'Solution not found'"))
+            return  # Exit the thread
+
 
     def check_thread_status(self):
         if self.optimization_thread.is_alive():
             # If the thread is still running, check again after a short delay
             self.after(100, self.check_thread_status)  # Check every 100ms
         else:
-            # Once the thread is done, update the label
-            self.show_results()
             pass
+
+
+    # LCOE calculation
+    def calculate_lcoe(self, include_hydrogen_system=False):
+        def get_discounted_npv(total_capex, opex_per_year, component_lifetime, project_lifetime, wacc):
+            """Helper function to calculate NPV of costs."""
+            num_replacements = math.ceil(project_lifetime / component_lifetime) - 1
+            capex_npv = total_capex * sum(1 / ((1 + wacc) ** (j * component_lifetime)) for j in range(num_replacements + 1))
+            opex_npv = sum(opex_per_year / ((1 + wacc) ** t) for t in range(1, int(project_lifetime) + 1))
+            return capex_npv + opex_npv
+
+        try:
+            results_path = path.join(self.output_path, "results.xlsx")
+            if not path.exists(results_path):
+                messagebox.showerror("Error", f"Results file not found. Please run optimization first.")
+                return None
+
+            results_data = pd.read_excel(results_path, sheet_name='singleValueDvs', index_col=0)
+            
+            # Get optimized capacities
+            wind_capacity = results_data.loc['windCapacity']['Value']
+            solar_capacity = results_data.loc['solarCapacity']['Value']
+            bs_power_capacity = results_data.loc['bsPowerCapacity']['Value']
+
+            # Get parameters
+            lifetime = self.inputDataset['simulationLifetime']
+            re_lifetime = self.inputDataset['reLifetime']
+            bs_lifetime = self.inputDataset['bsLifetime']
+            ey_lifetime = self.inputDataset['eyLifetime']
+            wacc = self.inputDataset['WACC']
+
+            # Cost parameters
+            capex_wind_mw = self.inputDataset['capexWind']
+            opex_wind_mw = self.inputDataset['fixedOpexWind']
+            capex_solar_mw = self.inputDataset['capexSolar']
+            opex_solar_mw = self.inputDataset['fixedOpexSolar']
+            capex_bs_power_mw = self.inputDataset['capexBSpower']
+            opex_bs_power_mw = self.inputDataset['fixedOpexBSpower']
+
+            # Calculate costs
+            wind_total_capex = wind_capacity * capex_wind_mw
+            wind_annual_opex = wind_capacity * opex_wind_mw
+            wind_cost_npv = get_discounted_npv(wind_total_capex, wind_annual_opex, re_lifetime, lifetime, wacc)
+
+            solar_total_capex = solar_capacity * capex_solar_mw
+            solar_annual_opex = solar_capacity * opex_solar_mw
+            solar_cost_npv = get_discounted_npv(solar_total_capex, solar_annual_opex, re_lifetime, lifetime, wacc)
+
+            battery_total_capex = bs_power_capacity * capex_bs_power_mw
+            battery_annual_opex = bs_power_capacity * opex_bs_power_mw
+            battery_cost_npv = get_discounted_npv(battery_total_capex, battery_annual_opex, bs_lifetime, lifetime, wacc)
+            
+            electrolyzer_cost_npv = 0
+            water_cost_npv = 0
+            h2_storage_cost_npv = 0
+
+            if include_hydrogen_system:
+                ey_capacity_mw = self.eySingleDvDataset.loc['Capacity', 0]
+                ey_capex_mw = self.inputDataset['capexEY'][0] 
+                ey_opex_mw = self.inputDataset['fixedOpexEY'][0]
+                ey_total_capex = ey_capacity_mw * ey_capex_mw
+                ey_annual_opex = ey_capacity_mw * ey_opex_mw
+                electrolyzer_cost_npv = get_discounted_npv(ey_total_capex, ey_annual_opex, ey_lifetime, lifetime, wacc)
+
+                total_h2_production_npv = self.totalHydrogenProduction
+                water_cost_per_kg = results_data.loc['waterCosts']['Value']
+                h2_storage_cost_per_kg = results_data.loc['h2StorageCosts']['Value']
+                water_cost_npv = water_cost_per_kg * total_h2_production_npv
+                h2_storage_cost_npv = h2_storage_cost_per_kg * total_h2_production_npv
+
+            total_cost_npv = wind_cost_npv + solar_cost_npv + battery_cost_npv + electrolyzer_cost_npv + water_cost_npv + h2_storage_cost_npv
+
+            # Calculate generation
+            hourly_data = pd.read_excel(results_path, sheet_name='hourlyValueDvs')
+            wind_gen_annual = hourly_data['windGen'].sum()
+            solar_gen_annual = hourly_data['solarGen'].sum()
+            total_gen_annual = wind_gen_annual + solar_gen_annual
+            
+            total_generation_npv = sum(
+                total_gen_annual / ((1 + wacc) ** t)
+                for t in range(1, int(lifetime) + 1)
+            )
+
+            # Calculate LCOE
+            lcoe = total_cost_npv / total_generation_npv if total_generation_npv > 0 else 0
+
+            return {
+                'lcoe': lcoe,
+                'total_cost_npv': total_cost_npv,
+                'total_generation_npv': total_generation_npv,
+                'wind_cost_npv': wind_cost_npv,
+                'solar_cost_npv': solar_cost_npv,
+                'battery_cost_npv': battery_cost_npv,
+                'electrolyzer_cost_npv': electrolyzer_cost_npv,
+                'water_cost_npv': water_cost_npv,
+                'h2_storage_cost_npv': h2_storage_cost_npv,
+                'wind_generation_annual': wind_gen_annual,
+                'solar_generation_annual': solar_gen_annual,
+                'total_generation_annual': total_gen_annual,
+            }
+
+        except Exception as e:
+            print(f"An error occurred during LCOE calculation: {e}")
+            traceback.print_exc()
+            return None
+
+    def display_lcoe_simple(self):
+            try:
+                results_path = path.join(self.output_path, "results.xlsx")
+                if not path.exists(results_path):
+                    messagebox.showerror("Error", "No optimization results found. Please run optimization first.")
+                    return
+                
+                lcoe_results = self.calculate_lcoe(include_hydrogen_system=True)
+                
+                if lcoe_results:
+                    results_text = f"""LCOE Calculation Breakdown:
+    ════════════════════════════════════════════════
+    LCOE: ${lcoe_results['lcoe']:.2f}/MWh  (${lcoe_results['lcoe']/1000:.4f}/kWh)
+
+    This LCOE represents the average cost of every MWh generated
+    by the PV and Wind systems over the project's lifetime,
+    considering all electricity system costs.
+
+    Calculation Formula:
+    LCOE = Total Discounted Costs (NPV) / Total Discounted Generation (NPV)
+        = ${lcoe_results['total_cost_npv']:,.0f} / {lcoe_results['total_generation_npv']:,.0f} MWh
+        = ${lcoe_results['lcoe']:.2f}/MWh
+
+    Cost Breakdown (NPV of Lifetime Costs):
+    - Wind System (PV+OPEX):      ${lcoe_results['wind_cost_npv']:>15,.0f}
+    - Solar System (PV+OPEX):     ${lcoe_results['solar_cost_npv']:>15,.0f}
+    - Battery Storage (PV+OPEX):  ${lcoe_results['battery_cost_npv']:>15,.0f}
+    - Electrolyzer System:        ${lcoe_results['electrolyzer_cost_npv']:>15,.0f}
+    - Water Costs:                ${lcoe_results['water_cost_npv']:>15,.0f}
+    - H2 Storage System:          ${lcoe_results['h2_storage_cost_npv']:>15,.0f}
+    ------------------------------------------------------
+    - Total System Cost (NPV):    ${lcoe_results['total_cost_npv']:>15,.0f}
+
+    Generation Breakdown:
+    - Annual Wind Generation:     {lcoe_results['wind_generation_annual']:>15,.0f} MWh
+    - Annual Solar Generation:    {lcoe_results['solar_generation_annual']:>15,.0f} MWh
+    ------------------------------------------------------
+    - Total Annual Generation:    {lcoe_results['total_generation_annual']:>15,.0f} MWh
+    - Total Discounted Gen (NPV): {lcoe_results['total_generation_npv']:>15,.0f} MWh
+    ════════════════════════════════════════════════
+    """
+
+                    if hasattr(self, 'lcoe_results_text') and self.lcoe_results_text.winfo_exists():
+                        self.lcoe_results_text.destroy()
+
+                    self.lcoe_results_text = customtkinter.CTkTextbox(
+                        self.lcoe_frame,
+                        wrap="none",
+                        font=("Courier New", 11)
+                    )
+                    self.lcoe_results_text.grid(row=2, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+                    self.lcoe_results_text.insert("0.0", results_text)
+                    
+                else:
+                    messagebox.showerror("Error", "LCOE calculation returned no results.")
+                    
+            except Exception as e:
+                error_msg = f"Error displaying LCOE results: {str(e)}"
+                print(error_msg)
+                traceback.print_exc()
+                messagebox.showerror("Display Error", error_msg)
+
 
 if __name__ == "__main__":
     app = App()
