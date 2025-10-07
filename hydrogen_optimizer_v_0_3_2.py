@@ -1837,7 +1837,7 @@ class App(customtkinter.CTk):
         hsAvail_day = self.graph_data.loc[start_index_local:end_index_local-1,"hsAvail"]
         hsDeploy_day = self.graph_data.loc[start_index_local:end_index_local-1,"hsDeploy"]
         hydrogenProd0_day = self.graph_data2.loc[start_index_local:end_index_local-1,0]
-        totalhydrogen_day = self.graph_data.loc[start_index_local:end_index_local-1,"totalH2"]
+        hydrogen_delivered = self.graph_data.loc[start_index_local:end_index_local-1,"totalH2"]
         #hydrogenProd1_day = self.graph_data2.loc[start_index_local:end_index_local-1,1]
         print(len(solarGen_day))
         time_labels = self.graph_data.loc[start_index_local:end_index_local - 1, "DateTime"]
@@ -1855,7 +1855,7 @@ class App(customtkinter.CTk):
         ax2.plot(time_labels, hydrogenProd0_day, marker='.', linestyle='solid', label="Hydrogen Produced (1)", color="darkturquoise")
         ax2.plot(time_labels, hsAvail_day, marker='.', linestyle='solid', label="Hydrogen Stored", color="darkcyan")
         ax2.plot(time_labels, hsDeploy_day, marker='.', linestyle='solid', label="Hydrogen Deployed from Storage", color="cornflowerblue")
-        ax2.plot(time_labels, totalhydrogen_day, marker='.', linestyle='solid', label="Total Hydrogen Produced", color="royalblue")
+        ax2.plot(time_labels, hydrogen_delivered, marker='.', linestyle='solid', label="Hydrogen Delivered", color="royalblue")
         #ax2.plot(time_labels, hydrogenProd1_day, marker='.', linestyle='solid', label="Hydrogen Produced (2)", color="darkcyan")
         # Set the title and labels
         ax1.set_title(r"Electricity Generation and H$_2$ production starting from day N$^{th}$ ",fontsize=12)#{n}
@@ -2221,7 +2221,10 @@ class App(customtkinter.CTk):
                 #orientations.append(1)  # Orientation for child
                 #pathlengths.append(0.7)
 
-        if len(flows) == 5:
+        if len(flows) == 4:
+            orientations = [0,1,0,-1]
+            pathlengths = [4,1,0.25,0.25]
+        elif len(flows) == 5:
             orientations = [0,1,1,0,-1]
             pathlengths = [4,1,1,0.25,0.25]
         elif len(flows) == 6:
