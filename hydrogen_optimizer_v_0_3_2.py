@@ -127,13 +127,12 @@ class App(customtkinter.CTk):
 
         # Set the icon for the window (application icon)
         self.image_path = path.abspath(path.join(path.dirname(path.realpath(__file__)), "images"))
-        #self.iconbitmap(bitmap=path.join(self.image_path, "hydrogen_optimizer_logo_v1.ico"))
-        self.iconpath = ImageTk.PhotoImage(file=path.join(self.image_path, "hydrogen_optimizer_logo_v1.png"))
+        self.iconpath = ImageTk.PhotoImage(file=path.join(self.image_path, "favicon.ico"))
         self.wm_iconbitmap()
         self.iconphoto(False, self.iconpath)
 
         # Create directory path variables
-        self.logo_image = customtkinter.CTkImage(Image.open(path.join(self.image_path, "hydrogen_optimizer_logo_v1.png")), size=(130, 140))
+        self.logo_image = customtkinter.CTkImage(Image.open(path.join(self.image_path, "logo_e_h2.png")), size=(130, 140))
         self.dat_path = path.abspath(path.join(path.dirname(path.realpath(__file__)), "modelInputs"))
         self.output_path = path.abspath(path.join(path.dirname(path.realpath(__file__)), "modelOutputs"))
 

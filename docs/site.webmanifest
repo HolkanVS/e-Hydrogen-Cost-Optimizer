@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "e-H2 Cost Optimizer",
+  "short_name": "e-H2",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

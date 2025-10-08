@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="images/hydrogen_optimizer_logo_v1.png" alt="e-Hydrogen Cost Optimizat Logo" width="250"/>
+<img src="images/logo_e_h2_squared.png" alt="e-Hydrogen Cost Optimizat Logo" width="350"/>
 <h1>e-Hydrogen Cost Optimizer</h1>
 <h3>Python-based User-defined Techno-economic Optimization and Life Cycle Assessment for e-Hydrogen Production </h3>
 

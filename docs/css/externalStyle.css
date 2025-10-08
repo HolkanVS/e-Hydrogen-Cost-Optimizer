@@ -19,6 +19,7 @@ header {
 header img {
   border-radius: 12px;
   margin-right: 24px;
+  padding: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   background-color: #ffffff; /* Change this to your desired color */
 }
