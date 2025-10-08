@@ -1,22 +1,28 @@
+# pyinstaller must be installed in the virtual environment in order to import all the libraries
+# python -m pip install pyinstaller
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import collect_submodules
+from PyInstaller.utils.hooks import collect_submodules, collect_data_files
+import os
 
 all_libraries = [
     'tkcalendar',
     'babel',
     'pyomo',
-    'highspy'
+    'highspy',
+    'encodings',
 ]
-hidden_imports = []
+hidden_imports = [
+]
 for l in all_libraries:
     hidden_imports += collect_submodules(l)
 
 a = Analysis(
     ['hydrogen_optimizer_v_0_3_2.py'],
-    pathex=[],
+    pathex = [],
     binaries=[],
-    datas=[ ('.\images','images')
-            ],
+    datas=[ 
+        ('.\\images','images')
+        ],
     hiddenimports=hidden_imports,
     hookspath=[],
     hooksconfig={},

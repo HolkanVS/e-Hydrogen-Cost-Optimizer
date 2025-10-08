@@ -40,7 +40,6 @@ from tkinter import ttk, filedialog, messagebox
 import customtkinter
 #GUI extensions
 #CTkScrollableDropdown (beta)
-from CTkScrollableDropdown import CTkScrollableDropdown
 #Tkcalender
 from tkcalendar import DateEntry
 # Images and mapping
