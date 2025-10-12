@@ -9,6 +9,19 @@
 </div>
 
 ---
+<div align="center">
+  <a href="https://e-h2.org" target="_blank" rel="noopener noreferrer" style="
+    display: inline-block;
+    background-color: #0078D4;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+  ">Official website : e-h2.org</a>
+</div>
+
+---
 
 ## 📑Overview
 The **e-Hydrogen Cost Optimizer** application integrates techno-economic optimization and life cycle assessment (LCA) for the production of electrolytic hydrogen (e-hydrogen) powered by renewable energy sources.
