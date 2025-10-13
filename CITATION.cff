@@ -13,10 +13,7 @@ authors:
     email: holkan.vazquezsanchez@kaust.edu.sa
     affiliation: King Abdullah University of Science and Technology
     orcid: 'https://orcid.org/0000-0002-1026-0661'
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.17198884
-    description: 'Latest version DOI '
+doi: 10.5281/zenodo.17198884
 repository-code: 'https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer/'
 url: 'https://e-h2.org'
 abstract: >-
