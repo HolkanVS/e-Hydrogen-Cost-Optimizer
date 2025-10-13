@@ -8,19 +8,8 @@ Concept DOI (all versions) :
   
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17198884.svg)](https://doi.org/10.5281/zenodo.17198884)
 
-</div>
+[![Static Badge](https://img.shields.io/badge/official_website-e--h2.org-%230f8a33)](https://e-h2.org)
 
----
-<div align="center">
-  <a href="https://e-h2.org" target="_blank" rel="noopener noreferrer" style="
-    display: inline-block;
-    background-color: #0f8a33;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-  ">Official website : e-h2.org</a>
 </div>
 
 ---
