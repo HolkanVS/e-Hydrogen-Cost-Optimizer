@@ -126,6 +126,19 @@ For academic inquiries, collaborations, or feature requests, please contact the 
 
 --- 
 ## :clipboard: Citation
+### APA
+Vazquez-Sanchez, H. (2025). e-Hydrogen Cost Optimizer (Version : latest) [Computer software]. https://doi.org/10.5281/zenodo.17198884
 
+### BibText
+@software{Vazquez-Sanchez_e-Hydrogen_Cost_Optimizer_2025,  
+author = {Vazquez-Sanchez, Holkan},  
+doi = {10.5281/zenodo.17198884},  
+license = {Apache-2.0},  
+month = oct,  
+title = {{e-Hydrogen Cost Optimizer}},  
+url = {https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer/},  
+version = {: latest},  
+year = {2025}  
+}
 
 *This project is actively evolving — contributions and feedback are welcome!*
