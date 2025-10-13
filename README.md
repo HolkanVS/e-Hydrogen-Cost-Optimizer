@@ -4,15 +4,17 @@
 <h1>e-Hydrogen Cost Optimizer</h1>
 <h3>Python-based User-defined Techno-economic Optimization and Life Cycle Assessment for e-Hydrogen Production </h3>
 
+Concept DOI (all versions) : 
+  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17198884.svg)](https://doi.org/10.5281/zenodo.17198884)
 
-[![DOI](https://zenodo.org/badge/1009494230.svg)](https://zenodo.org/badge/latestdoi/1009494230)
 </div>
 
 ---
 <div align="center">
   <a href="https://e-h2.org" target="_blank" rel="noopener noreferrer" style="
     display: inline-block;
-    background-color: #0078D4;
+    background-color: #0f8a33;
     color: white;
     padding: 10px 18px;
     border-radius: 6px;
@@ -133,6 +135,8 @@ For academic inquiries, collaborations, or feature requests, please contact the 
 - **Dr. Aziz Nechache**   
   📧 [aziz.nechache@kaust.edu.sa](mailto:aziz.nechache@kaust.edu.sa )
 
+--- 
+## :clipboard: Citation
 
 
 *This project is actively evolving — contributions and feedback are welcome!*
