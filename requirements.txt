@@ -6,7 +6,7 @@ tkintermapview  # includes customtkinter and Pillow as dependencies
 
 # Scientific / Data
 numpy<2
-pandas          # depends on numpy<2
+pandas=2.2.3          # depends on numpy<2
 matplotlib
 pyomo
 openpyxl
@@ -16,3 +16,5 @@ brightway25; sys_platform == "darwin"  # MacOS Apple Silicon
 brightway25
 pypardiso; sys_platform == "win32"     # Windows only
 highspy  # optional, if using HiGHS solver
+
+pyinstaller

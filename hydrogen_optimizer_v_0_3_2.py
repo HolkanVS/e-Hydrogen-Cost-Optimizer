@@ -1075,9 +1075,10 @@ class App(customtkinter.CTk):
         # Parse JSON to get a pandas.DataFrame of data and dict of metadata
         parsed_response = json.loads(r.text)
         self.pv_data = pd.read_json(StringIO(json.dumps(parsed_response['data'])), orient='index')
-        metadata = parsed_response['metadata']
-        self.pv_data['local_time'] = pd.to_datetime(self.pv_data['local_time']) 
+        self.pv_data_metadata = parsed_response['metadata']
+        self.pv_data['local_time'] = pd.to_datetime(self.pv_data['local_time'], errors='coerce', utc=True).dt.tz_convert(self.pv_data_metadata['units']['local_time']) #change to the timezone of the location
         self.pv_data.set_index('local_time', inplace=True) 
+        #To correct: when the timezone has different offsets during the year (daylight saving time)
         print(self.pv_data.head(24))
         print(len(self.pv_data.index))
         self.pv_data.to_csv(path.join(self.dat_path, "pv_data.csv"))
@@ -1099,7 +1100,8 @@ class App(customtkinter.CTk):
         r = s.get(url, params=args)
         parsed_response = json.loads(r.text)
         self.wind_data = pd.read_json(StringIO(json.dumps(parsed_response['data'])), orient='index')
-        metadata2 = parsed_response['metadata']
+        self.wind_data_metadata = parsed_response['metadata']
+        self.wind_data['local_time'] = pd.to_datetime(self.wind_data['local_time'], errors='coerce', utc=True).dt.tz_convert(self.wind_data_metadata['units']['local_time']) #change to the timezone of the location
         self.wind_data.set_index('local_time', inplace=True) 
         print(self.wind_data.head(24))
         print(len(self.wind_data.index))
@@ -1716,7 +1718,7 @@ class App(customtkinter.CTk):
             self.pv_data.index = pd.to_datetime(self.pv_data.index).tz_localize(None)
             self.pv_data.to_excel(writer,sheet_name='hourlySolarCF')
 
-            self.wind_data.index = self.wind_data.index.tz_localize(None)
+            self.wind_data.index = pd.to_datetime(self.wind_data.index).tz_localize(None)
             self.wind_data.to_excel(writer,sheet_name='hourlyWindCF')
 
 
