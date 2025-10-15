@@ -11,6 +11,7 @@
 # - Added exception handlers for optimization threading
 # - Added button to visit e-h2.org website
 # - Added LCOE tab 
+# - Fixed timezone issues (daylight savings)
 #------------------------------------------------------------------------------------------------------
 #Libraries: 
 # Hereby we state the installation of some libaries that are required to run the code. 

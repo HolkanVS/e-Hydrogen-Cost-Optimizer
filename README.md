@@ -36,7 +36,7 @@ The **e-Hydrogen Cost Optimizer** app is built on top of the [Brightway LCA](htt
 - Graphical interface to run optimizations and view solver status in real time.
 
 ### 🌱 Life Cycle Assessment (LCA)
-- Built-in integration with the [Brightway2](https://docs.brightway.dev/en/latest/) LCA framework.
+- Built-in integration with the [Brightway25](https://docs.brightway.dev/en/latest/) LCA framework.
 - Calculation of climate impact using standard LCIA methods (e.g., Global Warming Potential).
 - Component-level environmental performance analysis.
 - Exportable CSV file with detailed LCA results per subcomponent.
@@ -66,41 +66,14 @@ It provides detailed, step-by-step instructions for:
 ---
 
 ## 💿 How To Install
-**Note:** This section provides a quick overview for installing the application.  
+  
 > For the complete installation procedure, please refer to the full [Installation](https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer-v0.3/wiki/Installation) guide in the wiki section.
 
-Follow these steps to install and run the **e-Hydrogen Cost Optimizer** on a Windows system:
-
-### System Requirements
-- Operating System: **Windows 10 or higher**
-- Internet connection (required for downloading weather data and LCA background data)
-- No Python installation required — the app runs as a standalone executable (`.exe`) alongside with an `_internal` folder that contains all the resources required.
-
-### 📥 Installation Steps
-
-1. **Download the Application**
-   - Get the latest version from the official source:
-
-     [Download e_Hydrogen_Cost_Optimizer_v_0_3_1.zip](https://kaust-my.sharepoint.com/:u:/g/personal/vazqueh_kaust_edu_sa/EcV8zr_Tum1MrNZYRoj2_K8Bh4IKeMUboWhOfY0hlEhFdA?e=ODEOMl)
-
-2. **Extract the Archive**
-   - Right-click on the downloaded `.zip` file and select **“Extract All...”**
-   - This will create a folder named `e_Hydrogen_Cost_Optimizer_v_0_3_1`
-
-3. **Run the Application**
-   - Open the extracted folder and double-click the file:
-          `e_Hydrogen_Cost_Optimizer_v_0_3_1.exe`
-
-    - **⚠ Important:** Do **not** move the `.exe` file out of its folder. If you need to relocate the executable, move the entire folder to a new location.
-   - You may optionally create a shortcut to the `.exe` file on your desktop.
-
-4. **Uninstallation**
-   - To uninstall the application, simply delete the folder `e_Hydrogen_Cost_Optimizer_v_0_3_1`.
 
 ---
 
 ## ⌨ Source Code 
-The source code is mainly found at the [hydrogen_optimizer_v_0_3_1.py](hydrogen_optimizer_v_0_3_1.py) `python` file. 
+The source code is mainly found at the [hydrogen_optimizer_v_0_3_2.py](hydrogen_optimizer_v_0_3_2.py) `python` file. 
 
 ---
 
@@ -140,5 +113,7 @@ url = {https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer/},
 version = {: latest},  
 year = {2025}  
 }
+
+---
 
 *This project is actively evolving — contributions and feedback are welcome!*
