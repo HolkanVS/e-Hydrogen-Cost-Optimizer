@@ -6,7 +6,7 @@ tkintermapview  # includes customtkinter and Pillow as dependencies
 
 # Scientific / Data
 numpy<2
-pandas=2.2.3          # depends on numpy<2
+pandas==2.2.3          # depends on numpy<2
 matplotlib
 pyomo
 openpyxl
