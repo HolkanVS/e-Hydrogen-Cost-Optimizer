@@ -4,11 +4,11 @@
 <h1>e-Hydrogen Cost Optimizer</h1>
 <h3>Python-based User-defined Techno-economic Optimization and Life Cycle Assessment for e-Hydrogen Production </h3>
 
-Concept DOI (all versions) : 
   
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17198884.svg)](https://doi.org/10.5281/zenodo.17198884)
-
 [![Static Badge](https://img.shields.io/badge/official_website-e--h2.org-%230f8a33)](https://e-h2.org)
+![GitHub file size in bytes](https://img.shields.io/github/size/HolkanVS/e-Hydrogen-Cost-Optimizer/docs%2Fdownloads%2Fe_Hydrogen_Cost_Optimizer_v_0_3_2.zip?label=application%20size(.zip)&color=%235C8C46)
+
 
 </div>
 
