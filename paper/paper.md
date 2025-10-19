@@ -21,6 +21,7 @@ authors:
   - name: S. Mani Sarathy
     orcid: 0000-0002-3975-6206
     affiliation: "1, 2"
+    corresponding: True
 affiliations:
   - name: Clean Energy Research Platform, King Abdullah University of Science and Technology, Thuwal, Saudi Arabia
     index: 1
