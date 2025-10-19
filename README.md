@@ -73,7 +73,7 @@ It provides detailed, step-by-step instructions for:
 ---
 
 ## ⌨ Source Code 
-The source code is mainly found at the [hydrogen_optimizer_v_0_3_2.py](hydrogen_optimizer_v_1_0_0.py) `python` file. 
+The source code is mainly found at the [hydrogen_optimizer_v_1_0_0.py](hydrogen_optimizer_v_1_0_0.py) `python` file. 
 
 ---
 
