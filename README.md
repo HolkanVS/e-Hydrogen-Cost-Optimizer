@@ -73,7 +73,7 @@ It provides detailed, step-by-step instructions for:
 ---
 
 ## ⌨ Source Code 
-The source code is mainly found at the [hydrogen_optimizer_v_0_3_2.py](hydrogen_optimizer_v_0_3_2.py) `python` file. 
+The source code is mainly found at the [hydrogen_optimizer_v_0_3_2.py](hydrogen_optimizer_v_1_0_0.py) `python` file. 
 
 ---
 
@@ -88,7 +88,10 @@ For academic inquiries, collaborations, or feature requests, please contact the 
 - **Holkan Vazquez-Sanchez**  
   📧 [holkan.vazquezsanchez@kaust.edu.sa](mailto:holkan.vazquezsanchez@kaust.edu.sa)
 
-- **Monserrat Echegoyen Lopez**    
+- **Chengcheng Zhao**  
+  📧[chengcheng.zhao@kaust.edu.sa](mailto:chengcheng.zhao@kaust.edu.sa)
+
+- **Monserrat Echegoyen-Lopez**    
   📧[monserrat.lopez@kaust.edu.sa](mailto:monserrat.lopez@kaust.edu.sa)
 
 - **Dr. Mani Sarathy**  
