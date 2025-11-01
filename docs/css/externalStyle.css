@@ -51,19 +51,18 @@ main p {
 }
 
 .grid_container_footer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
-    padding: 1rem;
     margin-top: 18px;
 }
 
 
 .footer-card-link {
-
+    flex: 1;
     align-items: center;
-    width: 160px;
-    height: 120px;
+    min-width: 130px;
     padding: 18px 10px 10px 10px;
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -117,31 +116,4 @@ footer a:hover {
     border-bottom: 1px solid #097c23;
 }
 
-/* Responsive adjustments */
-@media (max-width: 800px) {
-    main {
-        max-width: 98vw;
-        padding: 18px 8px;
-    }
-    .grid_container_footer {
-        flex-direction: column;
-        align-items: center;
-        gap: 18px;
-    }
-    .grid_container_footer div {
-        width: 90vw;
-        max-width: 320px;
-    }
-    header {
-        flex-direction: column;
-        text-align: center;
-        padding: 14px 8px;
-    }
-    header img {
-        margin: 0 0 12px 0;
-    }
-    header h1 {
-        text-align: center;
-        font-size: 1.5em;
-    }
-}
+
