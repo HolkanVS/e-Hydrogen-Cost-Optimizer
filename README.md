@@ -72,6 +72,14 @@ It provides detailed, step-by-step instructions for:
 
 ---
 
+## 📂 Tests (Baseline Case Study)
+
+> To verify that the **e-Hydrogen Cost Optimizer** application functions as intended, run the [**Baseline Case Study**](https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer-v0.3/wiki/Case-Study).
+
+
+
+---
+
 ## ⌨ Source Code 
 The source code is mainly found at the [hydrogen_optimizer_v_1_0_0.py](hydrogen_optimizer_v_1_0_0.py) `python` file. 
 
