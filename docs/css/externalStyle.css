@@ -95,6 +95,24 @@ h5 {
     letter-spacing: 0.5px;
 }
 
+.fliphtml5-preview {
+    display: block;
+    width: 50%;
+    max-width: 860px;
+    margin: 28px auto 8px auto;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid #e6e6e6;
+}
+
+.fliphtml5-preview:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 8px 28px rgba(13,168,50,0.15);
+    border-color: #0da832;
+}
+
 footer {
     font-family: 'Georgia', serif;
     text-align: center;
