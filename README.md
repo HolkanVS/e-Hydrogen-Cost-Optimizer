@@ -110,20 +110,13 @@ For academic inquiries, collaborations, or feature requests, please contact the 
 
 --- 
 ## :clipboard: Citation
-### APA
-Vazquez-Sanchez, H. (2025). e-Hydrogen Cost Optimizer (Version : latest) [Computer software]. https://doi.org/10.5281/zenodo.17198884
 
-### BibText
-@software{Vazquez-Sanchez_e-Hydrogen_Cost_Optimizer_2025,  
-author = {Vazquez-Sanchez, Holkan},  
-doi = {10.5281/zenodo.17198884},  
-license = {Apache-2.0},  
-month = oct,  
-title = {{e-Hydrogen Cost Optimizer}},  
-url = {https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer/},  
-version = {: latest},  
-year = {2025}  
-}
+When using this software please cite both the zenodo record (software repository) and the academic publication where it is implmemented: 
+### APA
+Vazquez-Sanchez, Holkan, Chengcheng Zhao, Monserrat Echegoyen-Lopez, Aziz Nechache, and S. Mani Sarathy.  2026. e-Hydrogen Cost Optimizer (Version : latest) [Computer software]. https://doi.org/10.5281/zenodo.17198884
+
+
+Vazquez-Sanchez, Holkan, Monserrat Echegoyen-Lopez, Aziz Nechache, Dimitrios C. Kyritsis, Jan Kosco, Miguel Gonzalez Morales, and S. Mani Sarathy. 2026. “Techno-Economic Optimization of e-Hydrogen Production in Saudi Arabia.” Next Energy 12:100639. doi:[10.1016/j.nxener.2026.100639](https://doi.org/10.1016/j.nxener.2026.100639) 
 
 ---
 
