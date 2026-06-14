@@ -1,3 +1,7 @@
-dist/e_Hydrogen_Cost_Optimizer_v_0_3_1.zip
-dist
-build
+.DS_Store
+dist/
+build/
+modelOutputs/lca_results.csv
+modelOutputs/results.xlsx
+modelInputs/pv_data.csv
+modelInputs/wind_data.csv

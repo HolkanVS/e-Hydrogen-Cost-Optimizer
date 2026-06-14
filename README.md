@@ -112,11 +112,10 @@ For academic inquiries, collaborations, or feature requests, please contact the 
 ## :clipboard: Citation
 
 When using this software please cite both the zenodo record (software repository) and the academic publication where it is implmemented: 
-### APA
-Vazquez-Sanchez, Holkan, Chengcheng Zhao, Monserrat Echegoyen-Lopez, Aziz Nechache, and S. Mani Sarathy.  2026. e-Hydrogen Cost Optimizer (Version : latest) [Computer software]. https://doi.org/10.5281/zenodo.17198884
-
-
-Vazquez-Sanchez, Holkan, Monserrat Echegoyen-Lopez, Aziz Nechache, Dimitrios C. Kyritsis, Jan Kosco, Miguel Gonzalez Morales, and S. Mani Sarathy. 2026. “Techno-Economic Optimization of e-Hydrogen Production in Saudi Arabia.” Next Energy 12:100639. doi:[10.1016/j.nxener.2026.100639](https://doi.org/10.1016/j.nxener.2026.100639) 
+### APA Style 7th edition
+>Vazquez-Sanchez, H., Zhao, C., Echegoyen-Lopez, M., Nechache, A., & Sarathy, S. M. (2026). e-Hydrogen Cost Optimizer (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.17198884
+>
+>Vazquez-Sanchez, H., Echegoyen-Lopez, M., Nechache, A., Kyritsis, D. C., Kosco, J., Morales, M. G., & Sarathy, S. M. (2026). Techno-economic optimization of e-hydrogen production in Saudi Arabia. Next Energy, 12, 100639. https://doi.org/10.1016/j.nxener.2026.100639
 
 ---
 

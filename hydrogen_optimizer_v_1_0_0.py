@@ -14,7 +14,7 @@
 # - Fixed timezone issues (daylight savings)
 # - Adding self.on_close() to handle window closing event
 #------------------------------------------------------------------------------------------------------
-#Libraries: 
+# Libraries: 
 # Hereby we state the installation of some libaries that are required to run the code. 
 # Please use the requirements.txt file to install the libraries or install them manually as shown below.
 #------------------------------------------------------------------------------------------------------
@@ -32,7 +32,6 @@
 #pip install brightway25 pypardiso (Windows)
 #pip install highspy (if using HiGHS solver)
 #------------------------------------------------------------------------------------------------------
-#Main code starts here
 
 # Import necessary libraries
 # Tkinter and extensions

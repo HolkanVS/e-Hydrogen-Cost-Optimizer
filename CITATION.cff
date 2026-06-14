@@ -13,6 +13,26 @@ authors:
     email: holkan.vazquezsanchez@kaust.edu.sa
     affiliation: King Abdullah University of Science and Technology
     orcid: 'https://orcid.org/0000-0002-1026-0661'
+  - given-names: Chengcheng
+    family-names: Zhao
+    email: chengcheng.zhao@kaust.edu.sa
+    affiliation: King Abdullah University of Science and Technology
+    orcid: 'https://orcid.org/0000-0002-1026-0661'
+  - given-names: Monserrat
+    family-names: Echegoyen-Lopez
+    email: monserrat.lopez@kaust.edu.sa
+    affiliation: King Abdullah University of Science and Technology
+    orcid: 'https://orcid.org/0009-0007-8705-0260'
+  - given-names: Aziz
+    family-names: Nechache
+    email: aziz.nechache@kaust.edu.sa
+    affiliation: King Abdullah University of Science and Technology
+    orcid: 'https://orcid.org/0000-0002-1026-0661'
+  - given-names: S. Mani
+    family-names: Sarathy
+    email: mani.sarathy@kaust.edu.sa
+    affiliation: King Abdullah University of Science and Technology
+    orcid: 'https://orcid.org/0000-0002-3975-6206'
 doi: 10.5281/zenodo.17198884
 repository-code: 'https://github.com/HolkanVS/e-Hydrogen-Cost-Optimizer/'
 url: 'https://e-h2.org'
