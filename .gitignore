@@ -1,7 +1,9 @@
-.DS_Store
+**/.DS_Store
+.vscode/
 dist/
 build/
-modelOutputs/lca_results.csv
-modelOutputs/results.xlsx
+modelInputs/data.dat
 modelInputs/pv_data.csv
 modelInputs/wind_data.csv
+modelOutputs/lca_results.csv
+modelOutputs/results.xlsx
